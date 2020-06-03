@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Icon } from '../Icon';
 import { logout } from '../../screens/auth/redux/actions';
-import { isAdmin, isOwnerOrUser } from '../../utils/permission';
+import { isAdmin } from '../../utils/permission';
 import Logo from '../../assets/logo.svg';
 
 const TopBar = ({ currentUser }) => {
