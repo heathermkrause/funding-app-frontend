@@ -57,7 +57,6 @@ const UserEdit = () => {
 
   const options = [
     { value: 'user', label: 'User' },
-    { value: 'owner', label: 'Owner' },
     { value: 'admin', label: 'Admin' },
   ];
 
