@@ -40,11 +40,6 @@ const TopBar = ({ currentUser }) => {
               </Nav.Link>
             </>
           )}
-          {isOwnerOrUser(currentUser) && (
-            <Nav.Link as={Link} to={'/restaurants'}>
-              Restaurants
-            </Nav.Link>
-          )}
         </Nav>
         <Nav>
           <Nav.Link>{`${firstName} ${lastName} (${role})`}</Nav.Link>
