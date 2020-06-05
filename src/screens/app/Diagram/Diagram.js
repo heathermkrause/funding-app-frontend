@@ -1,4 +1,7 @@
 import React, {useLayoutEffect, useRef, useState} from 'react';
+import C2S from 'canvas2svg';
+import fileDownload from 'js-file-download';
+
 import { useSelector } from 'react-redux';
 import {
     Card,
@@ -11,8 +14,6 @@ const Point = function (x, y) {
     this.x = x;
     this.y = y;
 };
-
-
 
 const getArrowEnds = (c1, c2, r) => {
     const { x: x1, y: y1 } = c1;
@@ -55,41 +56,43 @@ const Diagram = () => {
     const canvas = useRef(null);
 
     useLayoutEffect(() => {
-        const context = canvas.current.getContext("2d");
-        context.clearRect(0, 0, width, height);
+        const ctx = canvas.current.getContext("2d");
+        drawDiagram(ctx);
+    });
 
-        drawStandard(context);
-        if(projects.length) {
-            drawProjectName(context);
+    const drawDiagram = (ctx) => {
+        ctx.clearRect(0, 0, width, height);
+        drawStandard(ctx);
+        if (projects.length) {
+            drawProjectName(ctx);
         }
 
         if (!!stakeholders.length && !!connections.length) {
             const circleCenters = makePoints(width / 2, width / 2, polygonRadius, stakeholders.length, 0);
 
             circleCenters.forEach((center, index) => {
-                drawCircle(context, center.x, center.y);
-                context.font = "14px Barlow";
-                context.textAlign = 'center';
-                context.fillStyle = "white";
-                context.fillText(stakeholders[index].name, center.x, center.y);
+                drawCircle(ctx, center.x, center.y);
+                ctx.font = "14px Barlow";
+                ctx.textAlign = 'center';
+                ctx.fillStyle = "white";
+                ctx.fillText(stakeholders[index].name, center.x, center.y);
             })
-            
+
             connections.forEach((con) => {
                 const [startPoint, endPoint] = getArrowPoints(
                     circleCenters[findIndex(stakeholders, { _id: con.from._id })],
                     circleCenters[findIndex(stakeholders, { _id: con.to._id })],
-                    circleRadius+5
+                    circleRadius + 5
                 )
                 const Arrow = {
                     startPoint,
                     endPoint,
-                    arrowColor: con.type === 'influence' ? 'red' : con.type === 'funding' ? 'orange' : '#8FC3FF' 
+                    arrowColor: con.type === 'influence' ? 'red' : con.type === 'funding' ? 'orange' : '#8FC3FF'
                 }
-                console.log('Arrow:', Arrow);
-                drawArrow(context, Arrow.startPoint.x, Arrow.startPoint.y, Arrow.endPoint.x, Arrow.endPoint.y, 4, 1, 26, 10, Arrow.arrowColor, 4);
+                drawArrow(ctx, Arrow.startPoint.x, Arrow.startPoint.y, Arrow.endPoint.x, Arrow.endPoint.y, 4, 1, 26, 10, Arrow.arrowColor, 4);
             })
         }
-    });
+    }
 
     const drawStandard = (ctx) => {
 
@@ -313,9 +316,11 @@ const Diagram = () => {
     }
 
     const exportSVG = () => {
-        // const canvasEle = document.getElementById('diagram');
-        // let image = canvasEle.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
-        // window.location.href = image; 
+        const ctx = new C2S(dw, dh);
+        drawDiagram(ctx);
+        const svg = ctx.getSerializedSvg(true);
+        console.log(svg)
+        fileDownload(svg, `output-${Date.now()}.svg`)
     }
 
     return (
