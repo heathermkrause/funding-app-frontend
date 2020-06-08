@@ -19,18 +19,24 @@ import request from '../../../../utils/apiRequest';
 import { history } from '../../../../configureStore';
 import notify from '../../../../utils/notify';
 import { selectStakeholder } from './selectors';
+import { selectProject } from '../../Project/redux/selectors';
 
 export function* stakeholderListRequest(action) {
   try {
-    const { list, totalCount } = yield call(
+    const state = yield select();
+    const project = selectProject(state);
+    const projectId = get(project, 'project.id');
+    console.log('list is called:',projectId);
+
+    const { list } = yield call(
       request,
-      '/stakeholders',
+      `/stakeholders/${projectId}`,
       'GET',
       null,
       true,
     );
 
-    yield put(stakeholderListSuccess(list, totalCount));
+    yield put(stakeholderListSuccess(list));
     history.push(`/`);
   } catch (err) {
     yield put(stakeholderListError(err));
@@ -39,9 +45,13 @@ export function* stakeholderListRequest(action) {
 
 export function* stakeholderLoadRequest(action) {
   try {
+    const state = yield select();
+    const project = selectProject(state);
+    const projectId = get(project, 'project.id');
+
     const data = yield call(
       request,
-      `/stakeholders/${action.id}`,
+      `/stakeholders/${projectId}/${action.id}`,
       'GET',
       null,
       true,
@@ -70,30 +80,37 @@ export function* stakeholderDeleteRequest(action) {
 }
 
 export function* stakeholderSaveRequest() {
-  try {
-    const state = yield select();
+  const state = yield select();
+  const project =  selectProject(state);
+  const projectId = get(project, 'project.id');
+  if(!projectId) {
+    return notify('warn', 'Please select or create a project!')  
+  }
+
+  try {    
     const stakeholder = selectStakeholder(state);
     const requestData = get(stakeholder, 'stakeholder.data');
     const id = get(stakeholder, 'stakeholder.id');
     let responseData = null;
     
     if (id === 'new') {
-      responseData = yield call(
-        request,
-        '/stakeholders',
-        'POST',
-        { ...requestData },
-        true,
-      );
+        responseData = yield call(
+          request,
+          `/stakeholders/${projectId}`,
+          'POST',
+          { ...requestData },
+          true,
+        );
     } else {
       responseData = yield call(
         request,
-        `/stakeholders/${id}`,
+        `/stakeholders/${projectId}/${id}`,
         'PUT',
         { ...requestData },
         true,
       );
     }
+    
     history.push('/');
     notify('success', 'The stakeholder has been saved succcessfully');
 
@@ -108,8 +125,5 @@ export function* stakeholderSaga() {
   yield takeLatest(CONSTANTS.STAKEHOLDER_LIST_REQUEST, stakeholderListRequest);
   yield takeLatest(CONSTANTS.STAKEHOLDER_LOAD_REQUEST, stakeholderLoadRequest);
   yield takeLatest(CONSTANTS.STAKEHOLDER_SAVE_REQUEST, stakeholderSaveRequest);
-  yield takeLatest(
-    CONSTANTS.STAKEHOLDER_DELETE_REQUEST,
-    stakeholderDeleteRequest,
-  );
+  yield takeLatest(CONSTANTS.STAKEHOLDER_DELETE_REQUEST, stakeholderDeleteRequest);
 }

@@ -1,6 +1,7 @@
 import produce from 'immer';
 import get from 'lodash/get';
 import * as CONSTANTS from './constants';
+import { cloneDeep, findIndex } from 'lodash';
 
 const newProject = {
   date: new Date(),
@@ -36,7 +37,9 @@ const projectReducer = (state = initalState, action) =>
         break;
       case CONSTANTS.PROJECT_LIST_SUCCESS:
         draft.projects.list = action.payload.data;
-        draft.projects.totalCount = action.payload.totalCount;
+        console.log(draft.projects.list)
+        draft.project.data = action.payload.data[0];
+        draft.project.id = action.payload.data[0]._id;
         draft.projects.loading = false;
         break;
       case CONSTANTS.PROJECT_LIST_ERROR:
@@ -70,12 +73,20 @@ const projectReducer = (state = initalState, action) =>
       case CONSTANTS.PROJECT_LOAD_ERROR:
         draft.project.loading = false;
         break;
-      case CONSTANTS.PROJECT_SAVE_REQUEST:
+      case CONSTANTS.PROJECT_SAVE_REQUEST:        
         draft.project.loading = true;
         draft.project.error = [];
         break;
       case CONSTANTS.PROJECT_SAVE_SUCCESS:
-        draft.projects.list[0] = action.data;
+        if (draft.project.id === 'new') {
+          draft.projects.list = [...draft.projects.list, action.data];
+        } else {
+          console.log('it should be work')
+          const projectArray = cloneDeep(state.projects.list);
+          const index = findIndex(projectArray, { _id: action.data._id });
+          projectArray[index] = action.data;
+          draft.projects.list = projectArray;
+        }
         draft.project.data = action.data;
         draft.project.loading = false;
         break;

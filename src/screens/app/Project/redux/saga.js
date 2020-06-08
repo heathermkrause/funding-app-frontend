@@ -12,6 +12,12 @@ import {
   projectDeleteSuccess,
   projectDeleteError,
 } from './actions';
+import {
+  stakeholderListRequest
+} from '../../Stakeholder/redux/actions';
+import {
+  connectionListRequest
+} from '../../Connection/redux/actions';
 import request from '../../../../utils/apiRequest';
 import { history } from '../../../../configureStore';
 import notify from '../../../../utils/notify';
@@ -19,11 +25,6 @@ import { selectProject } from './selectors';
 
 export function* projectListRequest(action) {
   try {
-    // const requestData = {
-    //   skip: action.payload.skip,
-    //   limit: action.payload.limit,
-    //   filters: action.payload.filters,
-    // };
     const { list } = yield call(
       request,
       '/projects',
@@ -33,6 +34,8 @@ export function* projectListRequest(action) {
     );
 
     yield put(projectListSuccess(list));
+    yield put(stakeholderListRequest());
+    yield put(connectionListRequest());
     history.push(`/`);
   } catch (err) {
     yield put(projectListError(err));
@@ -50,6 +53,8 @@ export function* projectLoadRequest(action) {
     );
 
     yield put(projectLoadSuccess(data));
+    yield put(stakeholderListRequest());
+    yield put(connectionListRequest());
   } catch (err) {
     yield put(projectLoadError(err));
   }
@@ -76,9 +81,7 @@ export function* projectSaveRequest() {
     const project = selectProject(state);
     const requestData = get(project, 'project.data');
     const id = get(project, 'project.id');
-    let responseData = null;
-    
-    console.log('saga:', requestData);
+    let responseData = null;    
 
     if (id === 'new') {
       responseData = yield call(

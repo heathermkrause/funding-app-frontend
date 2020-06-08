@@ -5,12 +5,16 @@ import {
     Card,
     Form,
     Row,
-    Col
+    Col,
+    Modal,
+    Button
 } from 'react-bootstrap';
 import {
     EditButton,
     ConfirmButton,
-    CancelButton
+    CancelButton,
+    DeleteButton,
+    AddButton
 } from '../../../components/Buttons/Buttons';
 import {
     projectLoadRequest,
@@ -22,10 +26,11 @@ import {
 
 import { Icon } from '../../../components/Icon';
 
-const Project  = () => {
+const Project = () => {
 
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const currentUser = useSelector(state => state.auth.currentUser);
     const projects = useSelector(
@@ -39,28 +44,59 @@ const Project  = () => {
         dispatch(projectListRequest());
     }, [currentUser, dispatch]);
 
+    const onAddProject = () => {
+        setEditMode(true);
+        dispatch(loadNewProject());
+    }
+    const onSelectProject = e => {
+        dispatch(projectLoadRequest(e.target.value));
+    }
+    const onEditProject = () => {
+        dispatch(projectLoadRequest(project._id));
+        setEditMode(true);
+    }
+    const onConfirmProject = () => {
+        dispatch(projectSaveRequest())
+        setEditMode(false);
+    }
+
     const onUpdateField = (field, index) => event => {
         dispatch(updateProjectField(field, event.target.value, index));
     };
 
-    const onEditProject = () => {
-        if (projects[0]) {
-            dispatch(projectLoadRequest(projects[0]._id));
-        } else {
-            dispatch(loadNewProject());
-        }
-        setEditMode(true);
-    }
-
-    const onConfirmProject = () => {
-        dispatch(projectSaveRequest())
-        setEditMode(false);
-        dispatch(projectListRequest());
-    }
-
     const onCancelProject = () => {
         setEditMode(false);
     }
+    const onDeleteProject = () => {
+        setShowConfirm(true)
+    }
+    const handleCancel = () => {
+        setShowConfirm(false);
+    }
+    const handleConfirm = () => {
+        console.log('remove is confirmed')
+    }
+
+    const renderConfirmDialog = () => {
+        return (
+            <Modal show={showConfirm} onHide={handleCancel}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Deleting the Stakeholder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>The connections and stakeholders in this Project will be also removed. </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleConfirm}>
+                        Remove
+                    </Button>
+                    <Button variant="primary" onClick={handleCancel}>
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    };
 
     return (
         <Card className="bg-light mt-5 px-5 position-relative">
@@ -102,15 +138,28 @@ const Project  = () => {
                         </>
                         :
                         <>
-                            <Col lg="7">
-                                <h3>{get(projects, [0, 'name'], '')}</h3>
+                            <Col lg="7" className="pt-2">
+                                <select
+                                    className="custom-select custom-select-sm"
+                                    value={project._id}
+                                    onChange={(e) => onSelectProject(e)}
+                                >
+                                    {projects.map(project => (
+                                        <option key={project._id} value={project._id}>
+                                            {project.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </Col>
                             <Col lg="2" className="pt-2 text-center">
-                                <EditButton onClick={onEditProject} />
+                                <EditButton onClick={()=>onEditProject()} />
+                                <DeleteButton onClick={()=>onDeleteProject()} />
+                                <AddButton onClick={()=>onAddProject()} />
                             </Col>
                         </>
                     }
                 </Form.Group>
+                {renderConfirmDialog()}
             </Card.Body>
         </Card>
     )

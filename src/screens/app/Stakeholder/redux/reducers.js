@@ -37,7 +37,6 @@ const stakeholderReducer = (state = initalState, action) =>
         break;
       case CONSTANTS.STAKEHOLDER_LIST_SUCCESS:
         draft.stakeholders.list = action.payload.data;
-        draft.stakeholders.totalCount = action.payload.totalCount;
         draft.stakeholders.loading = false;
         break;
       case CONSTANTS.STAKEHOLDER_LIST_ERROR:

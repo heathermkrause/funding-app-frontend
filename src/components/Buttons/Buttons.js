@@ -36,4 +36,10 @@ const CancelButton = props => {
     )
 }
 
-export { EditButton, DeleteButton, ConfirmButton, CancelButton, ButtonGroup }
+const AddButton = props => {
+    return (
+        <Button type="button" onClick={props.onClick} variant="primary" size="sm"><Icon name="plus" /></Button>
+    )
+}
+
+export { EditButton, DeleteButton, ConfirmButton, CancelButton, ButtonGroup, AddButton }

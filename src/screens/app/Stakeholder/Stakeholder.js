@@ -10,7 +10,7 @@ import {
   Modal
 } from 'react-bootstrap';
 import { Icon } from '../../../components/Icon';
-import { EditableTable } from './EditableTable';
+import { ConnectionTable } from '../Connection';
 import { Project } from '../Project';
 import { get } from 'lodash';
 import {
@@ -49,9 +49,9 @@ const Stakeholder = () => {
     state => state.app.stakeholderState.stakeholders.totalCount,
   );
 
-  useEffect(() => {
-    dispatch(stakeholderListRequest());
-  }, [currentUser, dispatch]);
+  // useEffect(() => {
+  //   dispatch(stakeholderListRequest());
+  // }, [currentUser, dispatch]);
   
   const addStakeholer = () => {
     setNewStakeholder(true);
@@ -113,7 +113,7 @@ const Stakeholder = () => {
                   required
                 />                
               </Col>
-            <Col lg="2" className="text-center pt-2">
+              <Col lg="2" className="text-center pt-2">
                 <ConfirmButton onClick={() => onConfirmStakeholder()} />
                 <CancelButton onClick={() => onCancelStakeholder()} />
               </Col>
@@ -143,11 +143,9 @@ const Stakeholder = () => {
           <p>The connections related to this stakeholder will be also removed. </p>
         </Modal.Body>
         <Modal.Footer>
-          {currentUser['_id'] !== deletedId && (
-            <Button variant="danger" onClick={handleConfirm}>
-              Remove
-            </Button>
-          )}
+          <Button variant="danger" onClick={handleConfirm}>
+            Remove
+          </Button>
           <Button variant="primary" onClick={handleCancel}>
             Cancel
           </Button>
@@ -163,12 +161,11 @@ const Stakeholder = () => {
 
           <Project />
 
-
           <Card className="bg-light mt-5 px-5 position-relative">
             <Card.Body>
               
               <a
-                href="#" 
+                href="#"
                 className="position-absolute" 
                 style={{
                   "top": "15px",
@@ -203,8 +200,7 @@ const Stakeholder = () => {
             </Card.Body>
           </Card>
 
-          <EditableTable />       
-
+          <ConnectionTable />
           
         </Col>
         <Col lg={6}>

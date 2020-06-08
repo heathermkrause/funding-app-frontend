@@ -17,19 +17,22 @@ import {
 import request from '../../../../utils/apiRequest';
 import { history } from '../../../../configureStore';
 import notify from '../../../../utils/notify';
-import { selectConnection, selectProject } from './selectors';
+import { selectProject } from '../../Project/redux/selectors';
 
 export function* connectionListRequest(action) {
   try {
-    const { list, totalCount } = yield call(
+    const state = yield select();
+    const project = selectProject(state);
+    const projectId = get(project, 'project.id');
+    const { list } = yield call(
       request,
-      '/connections',
+      `/connections/${projectId}`,
       'GET',
       null,
       true,
     );
 
-    yield put(connectionListSuccess(list, totalCount));
+    yield put(connectionListSuccess(list));
     history.push(`/`);
   } catch (err) {
     yield put(connectionListError(err));
@@ -68,6 +71,13 @@ export function* connectionDeleteRequest(action) {
 }
 
 export function* connectionSaveRequest(data) {
+  const state = yield select();
+  const project = selectProject(state);
+  const projectId = get(project, 'project.id');
+  if (!projectId) {
+    return notify('warn', 'Please select or create a project!');
+  }
+
   try {
     let responseData = {...data.data};
 
@@ -75,7 +85,7 @@ export function* connectionSaveRequest(data) {
       delete responseData._id;
       responseData = yield call(
         request,
-        '/connections',
+        `/connections/${projectId}`,
         'POST',
         { ...responseData },
         true,
@@ -83,12 +93,13 @@ export function* connectionSaveRequest(data) {
     } else {
       responseData = yield call(
         request,
-        `/connections/${responseData._id}`,
+        `/connections/${projectId}/${responseData._id}`,
         'PUT',
         { ...responseData },
         true,
       );
     }
+
     history.push('/');
     notify('success', 'The connection has been saved succcessfully');
 
