@@ -7,7 +7,9 @@ import {
     Row,
     Col,
     Modal,
-    Button
+    Button,
+    Popover,
+    OverlayTrigger
 } from 'react-bootstrap';
 import {
     EditButton,
@@ -21,7 +23,8 @@ import {
     updateProjectField,
     projectSaveRequest,
     loadNewProject,
-    projectListRequest
+    projectListRequest,
+    projectDeleteRequest
 } from './redux/actions';
 
 import { Icon } from '../../../components/Icon';
@@ -74,7 +77,9 @@ const Project = () => {
         setShowConfirm(false);
     }
     const handleConfirm = () => {
-        console.log('remove is confirmed')
+        dispatch(projectDeleteRequest(project._id));
+        setShowConfirm(false);
+        dispatch(projectListRequest());
     }
 
     const renderConfirmDialog = () => {
@@ -101,19 +106,31 @@ const Project = () => {
     return (
         <Card className="bg-light mt-5 px-5 position-relative">
             <Card.Body>
-
-                <a
-                    href="#"
-                    className="position-absolute"
-                    style={{
-                        "top": "15px",
-                        "right": "20px",
-                        "fontSize": "22px",
-                        "color": "#312975"
-                    }}
+                <OverlayTrigger
+                    trigger="click"
+                    placement="bottom"
+                    overlay={
+                        <Popover id={`popover-positioned-buttom`}>
+                            <Popover.Title as="h3">Project Name!</Popover.Title>
+                            <Popover.Content>
+                                You can create and update a project.
+                            </Popover.Content>
+                        </Popover>
+                    }
                 >
-                    <Icon name="question-circle" />
-                </a>
+                    <a
+                        href="#"
+                        className="position-absolute"
+                        style={{
+                            "top": "15px",
+                            "right": "20px",
+                            "fontSize": "22px",
+                            "color": "#312975"
+                        }}
+                    >
+                        <Icon name="question-circle" />
+                    </a>
+                </OverlayTrigger>
 
                 <Form.Group as={Row} >
                     <Form.Label column lg="3">

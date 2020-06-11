@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import findIndex from "lodash/findIndex";
 import cloneDeep from "lodash/cloneDeep";
-import { Table, Button, Form, Card } from "react-bootstrap";
+import { Table, Button, Form, Card, OverlayTrigger, Popover, InputGroup } from "react-bootstrap";
 import {
     EditButton,
     ConfirmButton,
@@ -20,8 +20,9 @@ import notify from "../../../utils/notify";
 
 const ConnectionTable = (props) => {
     const [editList, setEditList] = useState([]);
-    const [skip, setSkip] = useState(0);
+    const [toggle, setToggle] = useState(false);
     let [connectionDrafts, setConnectionDrafts] = useState([]);
+    let [activeColumn, setActiveColumn] = useState('');
 
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.currentUser);
@@ -102,31 +103,118 @@ const ConnectionTable = (props) => {
         dispatch(connectionExportRequest());
     };
 
+    const sortBy = (key, reverse) => {        
+        let newConnectoinDrafts = cloneDeep(connectionDrafts);
+        if(reverse === true) {
+            newConnectoinDrafts.sort(compareBy(key)).reverse();
+        } else {
+            newConnectoinDrafts.sort(compareBy(key));
+        }
+        setConnectionDrafts(newConnectoinDrafts);
+    }
+
+    const sortByColumn = key => {
+        if (activeColumn === key) {
+            setToggle(!toggle);
+            setActiveColumn(key);
+            sortBy(key, toggle);
+        } else {
+            setActiveColumn(key);
+            sortBy(key, false)
+        }
+    }
+
+    const compareBy = (key) => {
+        if(key === 'from' || key === 'to') {
+            return function (a, b) {
+                if (a[key].name < b[key].name) return -1;
+                if (a[key].name > b[key].name) return 1;
+                return 0;
+            };
+        } else {
+            return function (a, b) {
+                if (a[key] < b[key]) return -1;
+                if (a[key] > b[key]) return 1;
+                return 0;
+            };
+        }
+    }
+
+    const handleSearchChange = (e) => {
+        const key = e.target.value.toLowerCase();
+        console.log('key:', key)
+
+        let filteredResult = connections.filter(ele => 
+            ele.type.toLowerCase().includes(key)
+            || ele.from.name.toLowerCase().includes(key) 
+            || ele.to.name.toLowerCase().includes(key)
+            || ele.note.toLowerCase().includes(key)
+        );
+        setConnectionDrafts(filteredResult);        
+    }
+
     return (
         <Card className="bg-light mt-5 px-5 py-4">
             <Card.Body>
-                <a
-                    href="#"
-                    className="position-absolute"
-                    style={{
-                        top: "15px",
-                        right: "20px",
-                        fontSize: "22px",
-                        color: "#312975",
-                    }}
+                <OverlayTrigger
+                    trigger="click"
+                    placement="bottom"
+                    overlay={
+                        <Popover id={`popover-positioned-buttom`}>
+                            <Popover.Title as="h3">Connection!</Popover.Title>
+                            <Popover.Content>
+                                This is the table for the relationship between stakeholders.
+                            </Popover.Content>
+                        </Popover>
+                    }
                 >
-                    <Icon name="question-circle" />
-                </a>
-
+                    <a
+                        href="#"
+                        className="position-absolute"
+                        style={{
+                            "top": "15px",
+                            "right": "20px",
+                            "fontSize": "22px",
+                            "color": "#312975"
+                        }}
+                    >
+                        <Icon name="question-circle" />
+                    </a>
+                </OverlayTrigger>
+                <InputGroup className="w-50">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text>
+                            <Icon name="search" />
+                        </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control
+                        type="text"
+                        placeholder="Search"
+                        name="firstName"
+                        onChange={handleSearchChange}
+                    />
+                </InputGroup>
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th className="w-10">Action</th>
+                            <th className="w-15">Action</th>
                             <th className="w-5"></th>
-                            <th>Type</th>
-                            <th className="w-15">From</th>
-                            <th className="w-15">To</th>
-                            <th>Note</th>
+                            <th onClick={() => sortByColumn('type')} className="w-15">
+                                Type
+                                {(activeColumn === 'type') ? (toggle) ? " ↓" : " ↑" : ""}
+                            </th>
+                            <th onClick={() => sortByColumn('from')} className="w-20">
+                                From
+                                {(activeColumn === 'from') ? (toggle) ? " ↓" : " ↑" : ""}
+                            </th>
+                            <th onClick={() => sortByColumn('to')} className="w-20">
+                                To
+                                {(activeColumn === 'to') ? (toggle) ? " ↓" : " ↑" : ""}
+                            </th>
+                            <th onClick={() => sortByColumn('note')}>
+                                Note
+                                {(activeColumn === 'note') ? (toggle) ? " ↓" : " ↑" : ""}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,7 +223,7 @@ const ConnectionTable = (props) => {
                                 editList.includes(connection._id) ||
                                     connection._id.includes("new") ? (
                                         <tr key={connection._id}>
-                                            <td className="text-center">
+                                            <td className="text-center content-center">
                                                 <ConfirmButton
                                                     onClick={() => onConfirmClick(connection._id)}
                                                 />
@@ -143,8 +231,8 @@ const ConnectionTable = (props) => {
                                                     onClick={() => onEditCancelClick(connection._id)}
                                                 />
                                             </td>
-                                            <td>#{index + 1}</td>
-                                            <td>
+                                            <td className="content-center">#{index + 1}</td>
+                                            <td className="content-center">
                                                 <select
                                                     className="custom-select custom-select-sm"
                                                     value={connection.type}
@@ -157,7 +245,7 @@ const ConnectionTable = (props) => {
                                                     <option value="influence">InFluence</option>
                                                 </select>
                                             </td>
-                                            <td>
+                                            <td className="content-center">
                                                 <select
                                                     className="custom-select custom-select-sm"
                                                     value={connection.from._id}
@@ -173,7 +261,7 @@ const ConnectionTable = (props) => {
                                                     ))}
                                                 </select>
                                             </td>
-                                            <td>
+                                            <td className="content-center">
                                                 <select
                                                     className="custom-select custom-select-sm"
                                                     value={connection.to._id}
@@ -187,7 +275,7 @@ const ConnectionTable = (props) => {
                                                     ))}
                                                 </select>
                                             </td>
-                                            <td>
+                                            <td className="content-center">
                                                 <Form.Control
                                                     type="text"
                                                     value={connection.note}

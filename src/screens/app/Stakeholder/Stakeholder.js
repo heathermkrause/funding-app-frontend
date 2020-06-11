@@ -7,7 +7,9 @@ import {
   Row,
   Col,
   Card,
-  Modal
+  Modal,
+  OverlayTrigger,
+  Popover
 } from 'react-bootstrap';
 import { Icon } from '../../../components/Icon';
 import { ConnectionTable } from '../Connection';
@@ -157,25 +159,38 @@ const Stakeholder = () => {
   return (
     <Container fluid>
       <Row>
-        <Col lg={6}>
+        <Col lg={5}>
 
           <Project />
 
           <Card className="bg-light mt-5 px-5 position-relative">
             <Card.Body>
               
-              <a
-                href="#"
-                className="position-absolute" 
-                style={{
-                  "top": "15px",
-                  "right": "20px",
-                  "fontSize": "22px",
-                  "color": "#312975"
-                }} 
+              <OverlayTrigger
+                trigger="click"
+                placement="bottom"
+                overlay={
+                  <Popover id={`popover-positioned-buttom`}>
+                    <Popover.Title as="h3">Stakeholder!</Popover.Title>
+                    <Popover.Content>
+                      You can manage the stakeholders.
+                    </Popover.Content>
+                  </Popover>
+                }
               >
-                <Icon name="question-circle" />
-              </a>
+                <a
+                  href="#"
+                  className="position-absolute"
+                  style={{
+                    "top": "15px",
+                    "right": "20px",
+                    "fontSize": "22px",
+                    "color": "#312975"
+                  }}
+                >
+                  <Icon name="question-circle" />
+                </a>
+              </OverlayTrigger>
 
               {renderStakeholders()}
               {newStakeholder && <Form.Group as={Row}>
@@ -196,14 +211,14 @@ const Stakeholder = () => {
                   </Col>
                 </Form.Group>
               }
-              <Button variant="primary" className="pull-right" onClick={() => addStakeholer()}>+ADD NEW</Button>
+              <Button variant="primary" className="pull-right" size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
             </Card.Body>
           </Card>
 
           <ConnectionTable />
           
         </Col>
-        <Col lg={6}>
+        <Col lg={7}>
           <Diagram />
         </Col>
       </Row>

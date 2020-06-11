@@ -37,7 +37,6 @@ const projectReducer = (state = initalState, action) =>
         break;
       case CONSTANTS.PROJECT_LIST_SUCCESS:
         draft.projects.list = action.payload.data;
-        console.log(draft.projects.list)
         draft.project.data = action.payload.data[0];
         draft.project.id = action.payload.data[0]._id;
         draft.projects.loading = false;
@@ -81,7 +80,6 @@ const projectReducer = (state = initalState, action) =>
         if (draft.project.id === 'new') {
           draft.projects.list = [...draft.projects.list, action.data];
         } else {
-          console.log('it should be work')
           const projectArray = cloneDeep(state.projects.list);
           const index = findIndex(projectArray, { _id: action.data._id });
           projectArray[index] = action.data;

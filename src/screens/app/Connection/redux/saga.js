@@ -56,18 +56,21 @@ export function* connectionLoadRequest(action) {
 }
 
 export function* connectionDeleteRequest(action) {
-  try {
-    const data = yield call(
-      request,
-      `/connections/${action.id}`,
-      'DELETE',
-      null,
-      true,
-    );
-    yield put(connectionDeleteSuccess(action.id, data));
-  } catch (err) {
-    yield put(connectionDeleteError(err));
-  }
+    try {
+        const state = yield select();
+        const project = selectProject(state);
+        const projectId = get(project, 'project.id');
+        const data = yield call(
+            request,
+            `/connections/${projectId}/${action.id}`,
+            'DELETE',
+            null,
+            true,
+        );
+            yield put(connectionDeleteSuccess(action.id, data));
+    } catch (err) {
+        yield put(connectionDeleteError(err));
+    }
 }
 
 export function* connectionSaveRequest(data) {

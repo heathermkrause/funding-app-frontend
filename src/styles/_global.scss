@@ -80,3 +80,26 @@ a:hover {
 .w-15 {
   width: 15%;
 }
+.w-20 {
+  width: 20%;
+}
+
+th {
+    cursor: pointer;
+}
+
+content-center {
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    background-color: #f3ece1;
+    font-family: 'barlow';
+    td {
+        font-size: 16px;
+    }
+    th {
+        font-size: 17px;
+    }
+}
