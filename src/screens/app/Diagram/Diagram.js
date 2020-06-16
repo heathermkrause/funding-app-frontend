@@ -189,8 +189,8 @@ const Diagram = () => {
                 </OverlayTrigger>
 
                 <canvas id="diagram" ref={canvas} width={width} height={height}/>
-                <Button onClick={exportPNG} letiant="info" className="pull-left mr-3">Export PNG</Button>
-                <Button onClick={exportSVG} letiant="info" className="pull-left">Export SVG</Button>
+                <Button onClick={exportPNG} variant="info" className="pull-left mr-3">Export PNG</Button>
+                <Button onClick={exportSVG} variant="info" className="pull-left">Export SVG</Button>
             </Card.Body>
         </Card>
     )
