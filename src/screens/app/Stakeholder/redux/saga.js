@@ -26,7 +26,6 @@ export function* stakeholderListRequest(action) {
     const state = yield select();
     const project = selectProject(state);
     const projectId = get(project, 'project.id');
-    console.log('list is called:',projectId);
 
     const { list } = yield call(
       request,
@@ -50,11 +49,11 @@ export function* stakeholderLoadRequest(action) {
     const projectId = get(project, 'project.id');
 
     const data = yield call(
-      request,
-      `/stakeholders/${projectId}/${action.id}`,
-      'GET',
-      null,
-      true,
+        request,
+        `/stakeholders/${projectId}/${action.id}`,
+        'GET',
+        null,
+        true,
     );
 
     yield put(stakeholderLoadSuccess(data));
@@ -65,12 +64,16 @@ export function* stakeholderLoadRequest(action) {
 
 export function* stakeholderDeleteRequest(action) {
   try {
+    const state = yield select();
+    const project = selectProject(state);
+    const projectId = get(project, 'project.id');
+
     const data = yield call(
-      request,
-      `/stakeholders/${action.id}`,
-      'DELETE',
-      null,
-      true,
+        request,
+        `/stakeholders/${projectId}/${action.id}`,
+        'DELETE',
+        null,
+        true,
     );
     yield put(relatedStakeholderDeleteSuccess(action.id));
     yield put(stakeholderDeleteSuccess(action.id, data));
@@ -95,11 +98,11 @@ export function* stakeholderSaveRequest() {
     
     if (id === 'new') {
         responseData = yield call(
-          request,
-          `/stakeholders/${projectId}`,
-          'POST',
-          { ...requestData },
-          true,
+            request,
+            `/stakeholders/${projectId}`,
+            'POST',
+            { ...requestData },
+            true,
         );
     } else {
       responseData = yield call(

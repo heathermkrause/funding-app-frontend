@@ -142,7 +142,6 @@ const ConnectionTable = (props) => {
 
     const handleSearchChange = (e) => {
         const key = e.target.value.toLowerCase();
-        console.log('key:', key)
 
         let filteredResult = connections.filter(ele => 
             ele.type.toLowerCase().includes(key)
@@ -197,21 +196,21 @@ const ConnectionTable = (props) => {
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th className="w-15">Action</th>
-                            <th className="w-5"></th>
-                            <th onClick={() => sortByColumn('type')} className="w-15">
+                            <th className="text-center w-15">Action</th>
+                            <th className="text-center w-5"></th>
+                            <th className="text-center w-15" onClick={() => sortByColumn('type')}>
                                 Type
                                 {(activeColumn === 'type') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
-                            <th onClick={() => sortByColumn('from')} className="w-20">
+                            <th className="text-center w-20" onClick={() => sortByColumn('from')}>
                                 From
                                 {(activeColumn === 'from') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
-                            <th onClick={() => sortByColumn('to')} className="w-20">
+                            <th className="text-center w-20" onClick={() => sortByColumn('to')}>
                                 To
                                 {(activeColumn === 'to') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
-                            <th onClick={() => sortByColumn('note')}>
+                            <th className="text-center" onClick={() => sortByColumn('note')}>
                                 Note
                                 {(activeColumn === 'note') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
@@ -223,7 +222,7 @@ const ConnectionTable = (props) => {
                                 editList.includes(connection._id) ||
                                     connection._id.includes("new") ? (
                                         <tr key={connection._id}>
-                                            <td className="text-center content-center">
+                                            <td className="text-center content-center v-middle">
                                                 <ConfirmButton
                                                     onClick={() => onConfirmClick(connection._id)}
                                                 />
@@ -289,17 +288,17 @@ const ConnectionTable = (props) => {
                                         </tr>
                                     ) : (
                                         <tr key={connection._id}>
-                                            <td className="text-center">
+                                            <td className="text-center v-middle">
                                                 <EditButton onClick={() => onEditClick(connection._id)} />
                                                 <DeleteButton
                                                     onClick={() => onDeleteClick(connection._id)}
                                                 />
                                             </td>
-                                            <td>#{index + 1}</td>
-                                            <td>{connection.type}</td>
-                                            <td>{connection.from ? connection.from.name : ""}</td>
-                                            <td>{connection.to ? connection.to.name : ""}</td>
-                                            <td>{connection.note}</td>
+                                            <td className="text-center v-middle">#{index + 1}</td>
+                                            <td className="text-center v-middle">{connection.type}</td>
+                                            <td className="text-center v-middle break-word">{connection.from ? connection.from.name : ""}</td>
+                                            <td className="text-center v-middle break-word">{connection.to ? connection.to.name : ""}</td>
+                                            <td className="text-center v-middle break-word">{connection.note}</td>
                                         </tr>
                                     )
                             )}

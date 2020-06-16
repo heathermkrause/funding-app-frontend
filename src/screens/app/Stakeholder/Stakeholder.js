@@ -35,12 +35,10 @@ const Stakeholder = () => {
   
   const dispatch = useDispatch();
   const [editId, setEditMode] = useState('');
-  const [skip, setSkip] = useState(0);
   const [newStakeholder, setNewStakeholder] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [deletedId, setDeletedId] = useState(null);
 
-  const currentUser = useSelector(state => state.auth.currentUser);
   const stakeholder = useSelector(
     state => state.app.stakeholderState.stakeholder.data,
   );

@@ -10,15 +10,15 @@ import {
 } from 'react-bootstrap';
 import findIndex from 'lodash/findIndex';
 import { Icon } from '../../../components/Icon';
-import { makePoints, getArrowPoints, drawArrow, responsiveText } from './util';
+import { makePoints, getArrowPoints, drawArrow, getFontInfo } from './util';
 
 const Diagram = () => {
 
-    const [pixelRatio, setPixelRatio] = useState(window.devicePixelRatio)
-    const [width, setWidth] = useState(800)
+    const [pixelRatio, setPixelRatio] = useState(window.devicePixelRatio);
+    const [width, setWidth] = useState(800);
     const [height, setHeight] = useState(800);
-    const [polygonRadius, setPloyonRadius] = useState(250)
-    const [circleRadius, setCircleRadius] = useState(70);
+    const [polygonRadius, setPloyonRadius] = useState(250);
+    const [circleRadius, setCircleRadius] = useState(60);
     const canvas = useRef(null);
     const cardRef = useRef(null);
 
@@ -53,13 +53,23 @@ const Diagram = () => {
 
         if (!!stakeholders.length && !!connections.length) {
             const circleCenters = makePoints(width / 2-40, height / 2-40, polygonRadius, stakeholders.length, 0);
+            const c1 = circleCenters[0];
+            const c2 = circleCenters[1];
+
+            //getting responsive circle radius
+            const newRadius = 1/4 * Math.sqrt(Math.pow((c1.x - c2.x), 2) + Math.pow((c1.y - c2.y), 2));
+            console.log('--new radius-->', newRadius)
+            if(newRadius < 60) {
+                setCircleRadius(newRadius);
+            }
 
             circleCenters.forEach((center, index) => {
                 drawCircle(ctx, center.x, center.y);
-                ctx.font = '20px Barlow';
+                // const text = stakeholders[index].name.length > 10 ? stakeholders[index].name.slice(0, 10) + '...' : stakeholders[index].name;
+                const [text, fontSize] = getFontInfo(stakeholders[index].name, circleRadius);
+                ctx.font = `${fontSize}px Barlow`;
                 ctx.textAlign = 'center';
                 ctx.fillStyle = 'black';
-                const text = stakeholders[index].name.length > 10 ? stakeholders[index].name.slice(0, 10) + '...' : stakeholders[index].name;
                 ctx.fillText(text, center.x, center.y);
             })
             const rearrangedConnections = rearrangeConnection(connections);
@@ -76,7 +86,7 @@ const Diagram = () => {
                         endPoint,
                         arrowColor: con.type === 'influence' ? 'red' : con.type === 'funding' ? 'orange' : '#8FC3FF'
                     }
-                    drawArrow(ctx, Arrow.startPoint.x, Arrow.startPoint.y, Arrow.endPoint.x, Arrow.endPoint.y, 3, 1, 50, 25, Arrow.arrowColor, 5);
+                    drawArrow(ctx, Arrow.startPoint.x, Arrow.startPoint.y, Arrow.endPoint.x, Arrow.endPoint.y, 3, 1, 50, 25, Arrow.arrowColor, 4);
                 } 
             })
         }
@@ -145,7 +155,6 @@ const Diagram = () => {
         const ctx = new C2S(dw, dh);
         drawDiagram(ctx);
         const svg = ctx.getSerializedSvg(true);
-        console.log(svg)
         fileDownload(svg, `output-${Date.now()}.svg`)
     }
 

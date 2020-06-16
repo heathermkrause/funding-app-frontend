@@ -41,10 +41,10 @@ const getAnotherPoint = (a, b, k) => {
 
 export const getArrowPoints = (c1, c2, r, repeatTime) => {
     let distance
-    if(repeatTime%2) { 
-        distance = -15 * (Math.floor(repeatTime/2));
+    if(repeatTime % 2) { 
+        distance = -10 * (Math.floor(repeatTime/2));
     } else {
-        distance = 15 * (Math.floor(repeatTime/2));
+        distance = 10 * (Math.floor(repeatTime/2));
     }
     return [getArrowEnds(c1, c2, r, distance), getArrowEnds(c2, c1, r, distance)]
 }
@@ -226,13 +226,9 @@ const drawHead = (ctx, x0, y0, x1, y1, x2, y2, style, color, width) => {
     ctx.restore();
 }
 
-export const responsiveText = (radius, text) => {
-    const width = text.length * 5;
-    const textCountPerLine = 2 * radius / 5;
-    const repeatTime = Math.floor(radius/width);
-    const result = [];
-    for (let i = 0; i < repeatTime; i += 1) {
-        result.push(text.substr(i, (i+1)*textCountPerLine));
-    }
+export const getFontInfo = (text, radius) => {
+    const newText = text.length > 10 ? `${text.slice(0, 8)}...` : text;
+    const fontSize = radius * 2 / 6;
+    return [newText, fontSize];
 }
 
