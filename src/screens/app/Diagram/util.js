@@ -227,8 +227,23 @@ const drawHead = (ctx, x0, y0, x1, y1, x2, y2, style, color, width) => {
 }
 
 export const getFontInfo = (text, radius) => {
-    const newText = text.length > 10 ? `${text.slice(0, 8)}...` : text;
+    const textArray = [];
+
+    textArray.push(`${text.slice(0, 10)}`);
+    if(text.length >= 20) {
+        textArray.push(`${text.slice(10, 20)}`);
+    }    
+    if ((text.length < 20) && (text.length >= 10)) {
+        textArray.push(`${text.slice(10, 20)}`);
+    }    
+    if ((text.length < 30) && (text.length >= 20)) {
+        textArray.push(`${text.slice(20, 30)}`);
+    }
+    if (text.length >= 30) {
+        textArray.push(`${text.slice(20, 30)}...`);
+    }
+
     const fontSize = radius * 2 / 6;
-    return [newText, fontSize];
+    return [textArray, fontSize];
 }
 

@@ -11,6 +11,7 @@ import {
 import findIndex from 'lodash/findIndex';
 import { Icon } from '../../../components/Icon';
 import { makePoints, getArrowPoints, drawArrow, getFontInfo } from './util';
+import Mark from '../../../assets/company-mark.png';
 
 const Diagram = () => {
 
@@ -47,6 +48,7 @@ const Diagram = () => {
     const drawDiagram = (ctx) => {
         ctx.clearRect(0, 0, width, height);
         drawStandard(ctx);
+        drawLogo(ctx);
         if (projects.length) {
             drawProjectName(ctx);
         }
@@ -58,7 +60,7 @@ const Diagram = () => {
 
             //getting responsive circle radius
             const newRadius = 1/4 * Math.sqrt(Math.pow((c1.x - c2.x), 2) + Math.pow((c1.y - c2.y), 2));
-            console.log('--new radius-->', newRadius)
+
             if(newRadius < 60) {
                 setCircleRadius(newRadius);
             }
@@ -66,11 +68,21 @@ const Diagram = () => {
             circleCenters.forEach((center, index) => {
                 drawCircle(ctx, center.x, center.y);
                 // const text = stakeholders[index].name.length > 10 ? stakeholders[index].name.slice(0, 10) + '...' : stakeholders[index].name;
-                const [text, fontSize] = getFontInfo(stakeholders[index].name, circleRadius);
+                const [textArray, fontSize] = getFontInfo(stakeholders[index].name, circleRadius);
                 ctx.font = `${fontSize}px Barlow`;
                 ctx.textAlign = 'center';
                 ctx.fillStyle = 'black';
-                ctx.fillText(text, center.x, center.y);
+
+                if(textArray.length === 1) {
+                    ctx.fillText(textArray[0], center.x, center.y);
+                } else if(textArray.length === 2) {
+                    ctx.fillText(textArray[0], center.x, center.y - fontSize/2);
+                    ctx.fillText(textArray[1], center.x, center.y + fontSize/2);
+                } else {
+                    ctx.fillText(textArray[0], center.x, center.y - fontSize);
+                    ctx.fillText(textArray[1], center.x, center.y);
+                    ctx.fillText(textArray[2], center.x, center.y + fontSize);
+                }
             })
             const rearrangedConnections = rearrangeConnection(connections);
             rearrangedConnections.forEach((con) => {
@@ -84,7 +96,7 @@ const Diagram = () => {
                     const Arrow = {
                         startPoint,
                         endPoint,
-                        arrowColor: con.type === 'influence' ? 'red' : con.type === 'funding' ? 'orange' : '#8FC3FF'
+                        arrowColor: con.type === 'influence' ? 'red' : con.type === 'funding' ? 'orange' : '#594FD1'
                     }
                     drawArrow(ctx, Arrow.startPoint.x, Arrow.startPoint.y, Arrow.endPoint.x, Arrow.endPoint.y, 3, 1, 50, 25, Arrow.arrowColor, 4);
                 } 
@@ -107,19 +119,27 @@ const Diagram = () => {
         })
     }
 
+    const drawLogo = (ctx) => {
+        const img = new Image();
+        img.src = Mark; // can also be a remote URL e.g. http://
+        img.onload = function () {
+            ctx.drawImage(img, width-200, height-120, 200, 120);
+        };
+    }
+
     const drawStandard = (ctx) => {
 
         ctx.font = '18px Barlow';
         ctx.fillStyle = 'orange';
         ctx.fillText('Funding', 50, 15);
-        ctx.fillStyle = '#8FC3FF';
+        ctx.fillStyle = '#594FD1';
         ctx.fillText('Data', 50, 40);
         ctx.fillStyle = 'red';
         ctx.fillText('Influence', 50, 65);
 
-        drawArrow(ctx, 100, 10, 150, 10, 3, 1, 50, 20, 'orange', 4);
-        drawArrow(ctx, 100, 35, 150, 35, 3, 1, 50, 20, '#8FC3FF', 4);
-        drawArrow(ctx, 100, 60, 150, 60, 3, 1, 50, 20, 'red', 4);
+        drawArrow(ctx, 130, 10, 180, 10, 3, 1, 50, 20, 'orange', 4);
+        drawArrow(ctx, 130, 35, 180, 35, 3, 1, 50, 20, '#594FD1', 4);
+        drawArrow(ctx, 130, 60, 180, 60, 3, 1, 50, 20, 'red', 4);
     }
 
     const drawProjectName = (ctx) => {

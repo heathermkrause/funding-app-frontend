@@ -239,9 +239,9 @@ const ConnectionTable = (props) => {
                                                         onFieldChange(e, "type", connection._id)
                                                     }
                                                 >
-                                                    <option value="data">Data</option>
-                                                    <option value="funding">Funding</option>
-                                                    <option value="influence">InFluence</option>
+                                                    <option value="data" className="c-light-purple">Data</option>
+                                                    <option value="funding" className="c-yello">Funding</option>
+                                                    <option value="influence" className="c-light-red">InFluence</option>
                                                 </select>
                                             </td>
                                             <td className="content-center">
@@ -295,7 +295,7 @@ const ConnectionTable = (props) => {
                                                 />
                                             </td>
                                             <td className="text-center v-middle">#{index + 1}</td>
-                                            <td className="text-center v-middle">{connection.type}</td>
+                                            <td className={connection.type === "data" ? 'c-light-purple text-center v-middle' : connection.type === 'funding' ? 'c-yello text-center v-middle' : 'c-light-red text-center v-middle'}>{connection.type}</td>
                                             <td className="text-center v-middle break-word">{connection.from ? connection.from.name : ""}</td>
                                             <td className="text-center v-middle break-word">{connection.to ? connection.to.name : ""}</td>
                                             <td className="text-center v-middle break-word">{connection.note}</td>

@@ -94,7 +94,6 @@ content-center {
 }
 
 table {
-    background-color: #f3ece1;
     font-family: 'barlow';
     td {
         font-size: 16px;
@@ -110,4 +109,49 @@ table {
 
 .v-middle {
     vertical-align: middle !important;
+}
+
+.bg-dark-purple {
+    background-color: #312975 !important;
+}
+.bg-light-purple {
+    background-color: #594FD1 !important;
+}
+.bg-orange {
+    background-color: #EE734B !important;
+}
+.bg-yellow {
+    background-color: #FAB437 !important;
+}
+.bg-light-red {
+    background-color: #D24B5A !important;
+}
+.bg-cream {
+    background-color: #F3ECE1 !important;
+}
+
+.c-dark-purple {
+    color: #312975 !important;
+}
+.c-light-purple {
+    color: #594FD1 !important;
+}
+.c-orange {
+    color: #EE734B !important;
+}
+.c-yello {
+    color: #FAB437 !important;
+}
+.c-light-red {
+    color: #D24B5A !important;
+}
+.c-cream {
+    color: #F3ECE1 !important;
+}
+
+.btn-secondary {
+    @extend .bg-light-purple;
+}
+.btn-danger {
+    @extend .bg-light-red;
 }

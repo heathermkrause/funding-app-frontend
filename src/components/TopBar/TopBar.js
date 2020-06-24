@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Icon } from '../Icon';
 import { logout } from '../../screens/auth/redux/actions';
 import { isAdmin } from '../../utils/permission';
-import Logo from '../../assets/logo.svg';
+import Logo from '../../assets/company-logo.png';
 
 const TopBar = ({ currentUser }) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const TopBar = ({ currentUser }) => {
   };
   const { firstName, lastName, role } = currentUser;
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" style={{ 'backgroundColor': '#151515'}} variant="dark">
       <Navbar.Brand
         as={Link}
         to="/"
@@ -25,7 +25,7 @@ const TopBar = ({ currentUser }) => {
           src={Logo}
           width="40"
           height="40"
-          className="d-inline-block align-top"
+          className="d-inline-block align-top mr-2"
           alt="React Bootstrap logo"
         />
         Funding App
