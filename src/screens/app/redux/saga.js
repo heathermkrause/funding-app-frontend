@@ -6,6 +6,7 @@ import { restaurantSaga } from '../Restaurant/redux/saga';
 import { stakeholderSaga } from '../Stakeholder/redux/saga';
 import { connectionSaga } from '../Connection/redux/saga';
 import { projectSaga } from '../Project/redux/saga';
+import { profileSaga } from '../Profile/redux/saga';
 
 export function* appSaga() {
   yield all([
@@ -14,6 +15,7 @@ export function* appSaga() {
     fork(restaurantSaga),
     fork(stakeholderSaga),
     fork(connectionSaga),
-    fork(projectSaga)
+    fork(projectSaga),
+    fork(profileSaga)
   ]);
 }

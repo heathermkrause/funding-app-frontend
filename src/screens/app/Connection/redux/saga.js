@@ -114,11 +114,11 @@ export function* connectionSaveRequest(data) {
   }
 }
 
-export function* connectionExportRequest() {
+export function* connectionExportRequest(action) {
   try {
     const data = yield call(
       request,
-      '/csv/export',
+      '/csv/export?project_id=' + action.project_id,
       'GET',
       null,
       true

@@ -42,7 +42,6 @@ const Diagram = () => {
             
             const cardWidth = cardRef.current.offsetWidth;
             const canvasWidth = cardWidth;
-            console.log('canvasWidth', canvasWidth);
             setWidth(canvasWidth);
             setHeight(canvasWidth)
             setPloyonRadius(canvasWidth/2*0.7)

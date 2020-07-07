@@ -42,7 +42,7 @@ const TopBar = ({ currentUser }) => {
           )}
         </Nav>
         <Nav>
-          <Nav.Link>{`${firstName} ${lastName} (${role})`}</Nav.Link>
+          <Nav.Link as={Link} to="/profile">{`${firstName} ${lastName} (${role})`}</Nav.Link>
           <Nav.Link as={Link} to="/logout" onClick={handleLogout}>
             Logout&nbsp;
             <Icon name="sign-out" />

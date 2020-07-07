@@ -6,6 +6,7 @@ import { restaurantReducer } from '../Restaurant/redux/reducers';
 import { stakeholderReducer } from '../Stakeholder/redux/reducers';
 import { connectionReducer } from '../Connection/redux/reducers';
 import { projectReducer } from '../Project/redux/reducers';
+import { profileReducer } from '../Profile/redux/reducers';
 
 export const appReducer = combineReducers({
   userState: userReducer,
@@ -13,5 +14,6 @@ export const appReducer = combineReducers({
   restaurantState: restaurantReducer,
   stakeholderState: stakeholderReducer,
   connectionState: connectionReducer,
-  projectState: projectReducer
+  projectState: projectReducer,
+  profileState: profileReducer,
 });

@@ -6,6 +6,7 @@ import { Stakeholder } from './Stakeholder';
 import { UserEdit, UserMain } from './User';
 import { RestaurantEdit, RestaurantMain } from './Restaurant';
 import { ReviewEdit, ReviewMain } from './Review';
+import { Profile } from './Profile';
 import { TopBar } from '../../components/TopBar';
 import { isAdmin, isOwnerOrAdmin } from '../../utils/permission';
 
@@ -30,6 +31,7 @@ const AppScreens = () => {
           <Route path="/restaurants/:id" component={RestaurantEdit} />
         )}
         <Route path="/restaurants" component={RestaurantMain} />
+        <Route path="/profile" component={Profile} />
         <Redirect to="/" />
       </Switch>
     </>

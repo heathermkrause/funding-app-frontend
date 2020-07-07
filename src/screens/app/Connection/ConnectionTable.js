@@ -32,6 +32,9 @@ const ConnectionTable = (props) => {
     const stakeholders = useSelector(
         (state) => state.app.stakeholderState.stakeholders.list
     );
+    const project = useSelector(
+        state => state.app.projectState.project.data,
+    );
 
     useEffect(() => {
         setConnectionDrafts(connections);
@@ -67,6 +70,7 @@ const ConnectionTable = (props) => {
             ...connectionDrafts,
             {
                 _id: "new" + index,
+                user: currentUser._id,
                 type: "data",
                 from: "",
                 to: "",
@@ -100,7 +104,7 @@ const ConnectionTable = (props) => {
     };
 
     const handleExportCSV = () => {
-        dispatch(connectionExportRequest());
+        dispatch(connectionExportRequest(project._id));
     };
 
     const sortBy = (key, reverse) => {        
@@ -196,7 +200,6 @@ const ConnectionTable = (props) => {
                 <Table striped bordered hover size="sm">
                     <thead className="barlow-black-text">
                         <tr>
-                            {/* <th className="text-center w-15">ACTION</th> */}
                             <th className="text-center w-5"></th>
                             <th className="text-center w-15" onClick={() => sortByColumn('type')}>
                                 TYPE
@@ -214,6 +217,7 @@ const ConnectionTable = (props) => {
                                 NOTES
                                 {(activeColumn === 'note') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
+                            <th className="text-center w-15"></th>
                         </tr>
                     </thead>
                     <tbody className="barlow-light-text">
@@ -222,14 +226,6 @@ const ConnectionTable = (props) => {
                                 editList.includes(connection._id) ||
                                     connection._id.includes("new") ? (
                                         <tr key={connection._id}>
-                                            {/* <td className="text-center content-center v-middle">
-                                                <ConfirmButton
-                                                    onClick={() => onConfirmClick(connection._id)}
-                                                />
-                                                <CancelButton
-                                                    onClick={() => onEditCancelClick(connection._id)}
-                                                />
-                                            </td> */}
                                             <td className="content-center">#{index + 1}</td>
                                             <td className="content-center">
                                                 <select
@@ -285,20 +281,28 @@ const ConnectionTable = (props) => {
                                                     size="sm"
                                                 />
                                             </td>
+                                            <td className="text-center content-center v-middle">
+                                                <ConfirmButton
+                                                    onClick={() => onConfirmClick(connection._id)}
+                                                />
+                                                <CancelButton
+                                                    onClick={() => onEditCancelClick(connection._id)}
+                                                />
+                                            </td>
                                         </tr>
                                     ) : (
                                         <tr key={connection._id}>
-                                            {/* <td className="text-center v-middle">
-                                                <EditButton onClick={() => onEditClick(connection._id)} />
-                                                <DeleteButton
-                                                    onClick={() => onDeleteClick(connection._id)}
-                                                />
-                                            </td> */}
                                             <td className="text-center v-middle">#{index + 1}</td>
                                             <td className={connection.type === "data" ? 'c-light-purple text-center v-middle' : connection.type === 'funding' ? 'c-yello text-center v-middle' : 'c-light-red text-center v-middle'}>{connection.type}</td>
                                             <td className="text-center v-middle break-word">{connection.from ? connection.from.name : ""}</td>
                                             <td className="text-center v-middle break-word">{connection.to ? connection.to.name : ""}</td>
                                             <td className="text-center v-middle break-word">{connection.note}</td>
+                                            <td className="text-center v-middle">
+                                                <EditButton onClick={() => onEditClick(connection._id)} />
+                                                <DeleteButton
+                                                    onClick={() => onDeleteClick(connection._id)}
+                                                />
+                                            </td>
                                         </tr>
                                     )
                             )}

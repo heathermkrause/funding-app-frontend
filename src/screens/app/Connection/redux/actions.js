@@ -102,9 +102,10 @@ export function updateConnectionField(field, value) {
   };
 }
 
-export function connectionExportRequest() {
+export function connectionExportRequest(project_id) {
   return {
-    type: CONSTANTS.CONNECTION_EXPORT_REQUEST
+    type: CONSTANTS.CONNECTION_EXPORT_REQUEST,
+    project_id
   };
 }
 
