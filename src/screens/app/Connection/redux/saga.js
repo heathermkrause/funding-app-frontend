@@ -118,9 +118,9 @@ export function* connectionExportRequest(action) {
   try {
     const data = yield call(
       request,
-      '/csv/export?project_id=' + action.project_id,
+      '/csv/export',
       'GET',
-      null,
+      {project_id: action.project_id},
       true
     );
     notify('success', 'The connection has been exported succcessfully');

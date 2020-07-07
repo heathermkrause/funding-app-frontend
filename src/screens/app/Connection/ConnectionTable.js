@@ -104,6 +104,8 @@ const ConnectionTable = (props) => {
     };
 
     const handleExportCSV = () => {
+        let project_id = project._id;
+        console.log(project_id);
         dispatch(connectionExportRequest(project._id));
     };
 

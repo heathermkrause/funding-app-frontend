@@ -232,7 +232,7 @@ const ReviewMain = () => {
               className="d-flex justify-content-end algin-items-center"
             >
               {!isOwner(currentUser) && (
-                <Button as={Link} to={`/restaurants/${id}/reviews/new`}>
+                <Button className="btn-add" as={Link} to={`/restaurants/${id}/reviews/new`}>
                   Add
                 </Button>
               )}
@@ -252,7 +252,7 @@ const ReviewMain = () => {
               >
                 {!isOwner(currentUser) && (
                   <Button
-                    className="d-inline-flex align-items-center"
+                    className="d-inline-flex align-items-center btn-add"
                     as={Link}
                     variant="primary"
                     to={`/restaurants/${id}/reviews/new`}

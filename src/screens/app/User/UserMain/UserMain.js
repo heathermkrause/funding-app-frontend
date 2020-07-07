@@ -104,7 +104,7 @@ const UserMain = () => {
           <h3>Users</h3>
         </Col>
         <Col sm={6} className="d-flex justify-content-end align-items-center">
-          <Button as={Link} variant="primary" to="/users/new">
+          <Button as={Link} className="btn-add" variant="primary" to="/users/new">
             Add
           </Button>
         </Col>

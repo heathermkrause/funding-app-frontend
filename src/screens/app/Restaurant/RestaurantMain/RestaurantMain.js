@@ -183,7 +183,7 @@ const RestaurantMain = () => {
               className="d-flex justify-content-end align-items-center"
             >
               {!isUser(currentUser) && (
-                <Button varaint="default" as={Link} to="/restaurants/new">
+                <Button varaint="default" className="btn-add" as={Link} to="/restaurants/new">
                   Add
                 </Button>
               )}
