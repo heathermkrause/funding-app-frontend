@@ -13,6 +13,8 @@ import { Icon } from '../../../components/Icon';
 import { makePoints, getArrowPoints, drawArrow, getFontInfo } from './util';
 import Mark from '../../../assets/company-mark.png';
 
+const circleBgColor = '#312975';
+const circleTextColor = 'white';
 const Diagram = () => {
 
     const [pixelRatio, setPixelRatio] = useState(window.devicePixelRatio);
@@ -37,8 +39,10 @@ const Diagram = () => {
         const ctx = canvas.current.getContext("2d");
         drawDiagram(ctx);
         if(cardRef.current) {
+            
             const cardWidth = cardRef.current.offsetWidth;
             const canvasWidth = cardWidth;
+            console.log('canvasWidth', canvasWidth);
             setWidth(canvasWidth);
             setHeight(canvasWidth)
             setPloyonRadius(canvasWidth/2*0.7)
@@ -66,12 +70,13 @@ const Diagram = () => {
             }
 
             circleCenters.forEach((center, index) => {
+                console.log(center);
                 drawCircle(ctx, center.x, center.y);
                 // const text = stakeholders[index].name.length > 10 ? stakeholders[index].name.slice(0, 10) + '...' : stakeholders[index].name;
                 const [textArray, fontSize] = getFontInfo(stakeholders[index].name, circleRadius);
-                ctx.font = `${fontSize}px Barlow`;
+                ctx.font = `${fontSize}px Barlow Black`;
                 ctx.textAlign = 'center';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = circleTextColor;
 
                 if(textArray.length === 1) {
                     ctx.fillText(textArray[0], center.x, center.y);
@@ -129,7 +134,7 @@ const Diagram = () => {
 
     const drawStandard = (ctx) => {
 
-        ctx.font = '18px Barlow';
+        ctx.font = '18px Barlow Black';
         ctx.fillStyle = 'orange';
         ctx.fillText('Funding', 50, 15);
         ctx.fillStyle = '#594FD1';
@@ -143,7 +148,7 @@ const Diagram = () => {
     }
 
     const drawProjectName = (ctx) => {
-        ctx.font = 'bolder 30px Barlow';
+        ctx.font = 'bolder 30px Barlow Black';
         ctx.fillStyle = '#312975';
         ctx.fillText(projects[0].name, width/2, 30);
     }
@@ -151,9 +156,9 @@ const Diagram = () => {
     const drawCircle = (ctx, x, y) => {
         ctx.beginPath();
         ctx.arc(x, y, circleRadius, 0, 2 * Math.PI);
-        ctx.fillStyle = '#f3ece1';
+        ctx.fillStyle = circleBgColor;
         ctx.fill();
-        ctx.strokeStyle = '#f3ece1';
+        ctx.strokeStyle = circleBgColor;
         ctx.stroke();
     }
 
@@ -209,8 +214,8 @@ const Diagram = () => {
                 </OverlayTrigger>
 
                 <canvas id="diagram" ref={canvas} width={width} height={height}/>
-                <Button onClick={exportPNG} variant="info" className="pull-left mr-3">Export PNG</Button>
-                <Button onClick={exportSVG} variant="info" className="pull-left">Export SVG</Button>
+                <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
+                <Button onClick={exportSVG} variant="info" className="pull-left btn-export">Export SVG</Button>
             </Card.Body>
         </Card>
     )

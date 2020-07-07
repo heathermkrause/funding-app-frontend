@@ -38,7 +38,7 @@ const CancelButton = props => {
 
 const AddButton = props => {
     return (
-        <Button type="button" onClick={props.onClick} variant="primary" size="sm"><Icon name="plus" /></Button>
+        <Button type="button" onClick={props.onClick} variant="primary" size="sm" className="btn-add"><Icon name="plus" /></Button>
     )
 }
 

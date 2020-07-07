@@ -133,7 +133,7 @@ const Project = () => {
                 </OverlayTrigger>
 
                 <Form.Group as={Row} >
-                    <Form.Label column lg="3">
+                    <Form.Label column lg="3" className="barlow-black-text">
                         Project Name:
                     </Form.Label>
                     {editMode
@@ -142,6 +142,7 @@ const Project = () => {
                             <Col lg="7" className="pt-2">
                                 <Form.Control
                                     type="text"
+                                    className="barlow-light-text"
                                     value={get(project, 'name', '')}
                                     onChange={onUpdateField('name')}
                                     placeholder="Project Name"
@@ -157,7 +158,7 @@ const Project = () => {
                         <>
                             <Col lg="7" className="pt-2">
                                 <select
-                                    className="custom-select custom-select-sm"
+                                    className="custom-select custom-select-sm barlow-light-text"
                                     value={project._id}
                                     onChange={(e) => onSelectProject(e)}
                                 >

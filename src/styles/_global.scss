@@ -1,6 +1,21 @@
 @import './variables';
 @import '~bootstrap/scss/bootstrap';
 
+
+@font-face {
+  font-family: "Barlow Black";
+  src: url("/fonts/Barlow-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Barlow Light";
+  src: url("/fonts/Barlow-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 #root,
 html,
 body {
@@ -154,4 +169,46 @@ table {
 }
 .btn-danger {
     @extend .bg-light-red;
+}
+
+.btn-add {
+  background: #FAB437 !important;
+  border-color:#FAB437 !important;
+  color: black;
+
+  &:hover {
+    background: #f1a726 !important;
+    border-color:#f1a726 !important;
+    color: black;
+  }
+}
+
+.btn-export {
+  background: #8FC2FF !important;
+  border-color: #8FC2FF !important;
+
+  &:hover {
+    background: #6eacf8 !important;
+    border-color:#6eacf8 !important;
+  }
+}
+
+.bg-light {
+  background: #F3ECE1 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #b8b0a3;
+}
+
+.barlow-black-text {
+  font-family: 'Barlow Black', sans-serif;
+}
+
+.barlow-light-text {
+  font-family: 'Barlow Light', sans-serif;
+}
+
+.stakeholder-name {
+  text-align: center;
 }

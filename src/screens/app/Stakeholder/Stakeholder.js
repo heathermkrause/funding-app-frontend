@@ -92,14 +92,14 @@ const Stakeholder = () => {
   const renderStakeholders = () => {
     if (!stakeholders.length) {
       return (
-          <div colSpan="6">No Stakeholders</div>
+          <div colSpan="6" className="barlow-black-text">No Stakeholders</div>
       );
     }
 
     return stakeholders.map((sh, index) => (
-      <Form.Group as={Row} key={sh._id} >
+      <Form.Group as={Row} key={sh._id} className="barlow-black-text">
         <Form.Label column lg="3">
-          Stakeholder #{index+1}:
+          Stakeholder Name{index+1}:
         </Form.Label>
         {editId === sh._id
           ?
@@ -109,6 +109,7 @@ const Stakeholder = () => {
                   type="text"
                   value={get(stakeholder, 'name', '')}
                   onChange={onUpdateField('name')}
+                  className="stakeholder-name"
                   placeholder={`stakeholder ${index}`}
                   required
                 />                
@@ -121,7 +122,7 @@ const Stakeholder = () => {
           :
           <>
             <Col lg="7" className="pt-2">
-              <div>{get(stakeholders,[index, 'name'], '')}</div>
+              <div className="stakeholder-name">{get(stakeholders,[index, 'name'], '')}</div>
             </Col>
             <Col lg="2" className="text-center pt-2">
               <EditButton onClick={() => onEditStakeholder(sh._id)} />
@@ -191,9 +192,9 @@ const Stakeholder = () => {
               </OverlayTrigger>
 
               {renderStakeholders()}
-              {newStakeholder && <Form.Group as={Row}>
+              {newStakeholder && <Form.Group as={Row} className="barlow-black-text">
                   <Form.Label column lg="3">
-                    Stakeholder #{stakeholders.length + 1}:
+                    Stakeholder Name{stakeholders.length + 1}:
                   </Form.Label>
                   <Col lg="7" className="mt-2">
                     <Form.Control
@@ -209,7 +210,7 @@ const Stakeholder = () => {
                   </Col>
                 </Form.Group>
               }
-              <Button variant="primary" className="pull-right" size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
+              <Button variant="primary" className="pull-right btn-add" size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
             </Card.Body>
           </Card>
 

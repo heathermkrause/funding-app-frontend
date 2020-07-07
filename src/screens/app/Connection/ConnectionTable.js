@@ -194,42 +194,42 @@ const ConnectionTable = (props) => {
                     />
                 </InputGroup>
                 <Table striped bordered hover size="sm">
-                    <thead>
+                    <thead className="barlow-black-text">
                         <tr>
-                            <th className="text-center w-15">Action</th>
+                            {/* <th className="text-center w-15">ACTION</th> */}
                             <th className="text-center w-5"></th>
                             <th className="text-center w-15" onClick={() => sortByColumn('type')}>
-                                Type
+                                TYPE
                                 {(activeColumn === 'type') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
                             <th className="text-center w-20" onClick={() => sortByColumn('from')}>
-                                From
+                                FROM
                                 {(activeColumn === 'from') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
                             <th className="text-center w-20" onClick={() => sortByColumn('to')}>
-                                To
+                                TO
                                 {(activeColumn === 'to') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
                             <th className="text-center" onClick={() => sortByColumn('note')}>
-                                Note
+                                NOTES
                                 {(activeColumn === 'note') ? (toggle) ? " ↓" : " ↑" : ""}
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="barlow-light-text">
                         {!!connectionDrafts.length &&
                             connectionDrafts.map((connection, index) =>
                                 editList.includes(connection._id) ||
                                     connection._id.includes("new") ? (
                                         <tr key={connection._id}>
-                                            <td className="text-center content-center v-middle">
+                                            {/* <td className="text-center content-center v-middle">
                                                 <ConfirmButton
                                                     onClick={() => onConfirmClick(connection._id)}
                                                 />
                                                 <CancelButton
                                                     onClick={() => onEditCancelClick(connection._id)}
                                                 />
-                                            </td>
+                                            </td> */}
                                             <td className="content-center">#{index + 1}</td>
                                             <td className="content-center">
                                                 <select
@@ -288,12 +288,12 @@ const ConnectionTable = (props) => {
                                         </tr>
                                     ) : (
                                         <tr key={connection._id}>
-                                            <td className="text-center v-middle">
+                                            {/* <td className="text-center v-middle">
                                                 <EditButton onClick={() => onEditClick(connection._id)} />
                                                 <DeleteButton
                                                     onClick={() => onDeleteClick(connection._id)}
                                                 />
-                                            </td>
+                                            </td> */}
                                             <td className="text-center v-middle">#{index + 1}</td>
                                             <td className={connection.type === "data" ? 'c-light-purple text-center v-middle' : connection.type === 'funding' ? 'c-yello text-center v-middle' : 'c-light-red text-center v-middle'}>{connection.type}</td>
                                             <td className="text-center v-middle break-word">{connection.from ? connection.from.name : ""}</td>
@@ -306,14 +306,14 @@ const ConnectionTable = (props) => {
                 </Table>
                 <Button
                     variant="primary"
-                    className="pull-right"
+                    className="pull-right btn-add"
                     onClick={() => onAddClick(connectionDrafts.length)}
                 >
                     +ADD
                 </Button>
                 <Button
                     variant="info"
-                    className="pull-right block mb-3 mr-3"
+                    className="pull-right block mb-3 mr-3 btn-export"
                     onClick={handleExportCSV}
                 >
                     <Icon className="mr-1" name="file"></Icon>
