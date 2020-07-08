@@ -163,6 +163,7 @@ const Stakeholder = () => {
           <Project />
 
           <Card className="bg-light mt-5 px-5 position-relative">
+            
             <Card.Body>
               
               <OverlayTrigger

@@ -195,6 +195,7 @@ table {
 
 .bg-light {
   background: #F3ECE1 !important;
+  box-shadow: 3px 3px #888888;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -221,3 +222,13 @@ table {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+.diagramBody {
+  position: relative;
+  .logo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
+

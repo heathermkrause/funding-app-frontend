@@ -51,7 +51,7 @@ const Diagram = () => {
     const drawDiagram = (ctx) => {
         ctx.clearRect(0, 0, width, height);
         drawStandard(ctx);
-        drawLogo(ctx);
+        //drawLogo(ctx);
         if (projects.length) {
             drawProjectName(ctx);
         }
@@ -69,7 +69,6 @@ const Diagram = () => {
             }
 
             circleCenters.forEach((center, index) => {
-                console.log(center);
                 drawCircle(ctx, center.x, center.y);
                 // const text = stakeholders[index].name.length > 10 ? stakeholders[index].name.slice(0, 10) + '...' : stakeholders[index].name;
                 const [textArray, fontSize] = getFontInfo(stakeholders[index].name, circleRadius);
@@ -184,7 +183,7 @@ const Diagram = () => {
 
     return (
         <Card className="bg-light mt-5 px-5 position-relative">
-            <Card.Body ref={cardRef}>
+            <Card.Body ref={cardRef} className="diagramBody">
         
                 <OverlayTrigger
                     trigger="click"
@@ -211,8 +210,8 @@ const Diagram = () => {
                         <Icon name="question-circle" />
                     </a>
                 </OverlayTrigger>
-
                 <canvas id="diagram" ref={canvas} width={width} height={height}/>
+                <img className="logo" src={Mark} width={200} height={150}/>
                 <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
                 <Button onClick={exportSVG} variant="info" className="pull-left btn-export">Export SVG</Button>
             </Card.Body>
