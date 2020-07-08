@@ -133,13 +133,13 @@ const Project = () => {
                 </OverlayTrigger>
 
                 <Form.Group as={Row} >
-                    <Form.Label column lg="3" className="barlow-black-text">
+                    <Form.Label column lg="3" xs="4" className="barlow-black-text">
                         Project Name:
                     </Form.Label>
                     {editMode
                         ?
                         <>
-                            <Col lg="7" className="pt-2">
+                            <Col lg="7" xs="6" className="pt-2">
                                 <Form.Control
                                     type="text"
                                     className="barlow-light-text"
@@ -149,14 +149,14 @@ const Project = () => {
                                     required
                                 />
                             </Col>
-                            <Col lg="2" className="pt-2 text-center">
+                            <Col lg="2" xs="2" className="pt-2 text-center action-column">
                                 <ConfirmButton onClick={onConfirmProject} />
                                 <CancelButton onClick={onCancelProject} />
                             </Col>
                         </>
                         :
                         <>
-                            <Col lg="7" className="pt-2">
+                            <Col lg="7" xs="6" className="pt-2">
                                 <select
                                     className="custom-select custom-select-sm barlow-light-text"
                                     value={project._id}
@@ -169,7 +169,7 @@ const Project = () => {
                                     ))}
                                 </select>
                             </Col>
-                            <Col lg="2" className="pt-2 text-center">
+                            <Col lg="2" xs="2" className="pt-2 text-center action-column">
                                 <EditButton onClick={()=>onEditProject()} />
                                 <DeleteButton onClick={()=>onDeleteProject()} />
                                 <AddButton onClick={()=>onAddProject()} />

@@ -98,13 +98,13 @@ const Stakeholder = () => {
 
     return stakeholders.map((sh, index) => (
       <Form.Group as={Row} key={sh._id} className="barlow-black-text">
-        <Form.Label column lg="3">
+        <Form.Label column lg="3" xs="4">
           Stakeholder Name{index+1}:
         </Form.Label>
         {editId === sh._id
           ?
             <>
-              <Col lg="7" className="pt-2">
+              <Col lg="7" xs="6" className="pt-2">
                 <Form.Control
                   type="text"
                   value={get(stakeholder, 'name', '')}
@@ -114,17 +114,17 @@ const Stakeholder = () => {
                   required
                 />                
               </Col>
-              <Col lg="2" className="text-center pt-2">
+              <Col lg="2" xs="2" className="text-center pt-2 action-column">
                 <ConfirmButton onClick={() => onConfirmStakeholder()} />
                 <CancelButton onClick={() => onCancelStakeholder()} />
               </Col>
             </>
           :
           <>
-            <Col lg="7" className="pt-2">
+            <Col lg="7" xs="6" className="pt-2">
               <div className="stakeholder-name">{get(stakeholders,[index, 'name'], '')}</div>
             </Col>
-            <Col lg="2" className="text-center pt-2">
+            <Col lg="2" xs="2" className="text-center pt-2 action-column">
               <EditButton onClick={() => onEditStakeholder(sh._id)} />
               <DeleteButton onClick={() => onDeleteStakeholder(sh._id)} />
             </Col>
@@ -193,10 +193,10 @@ const Stakeholder = () => {
 
               {renderStakeholders()}
               {newStakeholder && <Form.Group as={Row} className="barlow-black-text">
-                  <Form.Label column lg="3">
+                  <Form.Label column lg="3" xs="4">
                     Stakeholder Name{stakeholders.length + 1}:
                   </Form.Label>
-                  <Col lg="7" className="mt-2">
+                  <Col lg="7" xs="6" className="mt-2">
                     <Form.Control
                       type="text"
                       onChange={onUpdateField('name')}
@@ -204,7 +204,7 @@ const Stakeholder = () => {
                       required
                     />
                   </Col>
-                  <Col lg="2" className="text-center pt-2">
+                  <Col lg="2" xs="2" className="text-center pt-2 action-column">
                     <ConfirmButton onClick={() => onConfirmStakeholder()} />
                     <CancelButton onClick={() => onCancelStakeholder()} />               
                   </Col>
