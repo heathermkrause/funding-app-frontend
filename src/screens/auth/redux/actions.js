@@ -41,6 +41,46 @@ export const signupError = () => {
   };
 };
 
+export const forgotPasswordRequest = (email) => {
+  return {
+    type: CONSTANTS.FORGOTPASSWORD_REQUEST,
+    email,
+  };
+};
+
+export const forgotPasswordSuccess = data => {
+  return {
+    type: CONSTANTS.FORGOTPASSWORD_SUCCESS,
+    payload: data,
+  };
+};
+
+export const forgotPasswordError = () => {
+  return {
+    type: CONSTANTS.FORGOTPASSWORD_ERROR,
+  };
+};
+
+export const resetPasswordRequest = (data) => {
+  return {
+    type: CONSTANTS.RESETPASSWORD_REQUEST,
+    data,
+  };
+};
+
+export const resetPasswordSuccess = data => {
+  return {
+    type: CONSTANTS.RESETPASSWORD_SUCCESS,
+    payload: data,
+  };
+};
+
+export const resetPasswordError = () => {
+  return {
+    type: CONSTANTS.RESETPASSWORD_ERROR,
+  };
+};
+
 export const logout = () => {
   return {
     type: CONSTANTS.LOGOUT,

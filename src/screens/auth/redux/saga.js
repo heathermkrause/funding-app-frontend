@@ -6,6 +6,10 @@ import {
   signupSuccess,
   loginError,
   loginSuccess,
+  forgotPasswordError,
+  forgotPasswordSuccess,
+  resetPasswordError,
+  resetPasswordSuccess
 } from './actions';
 
 import { history } from '../../../configureStore';
@@ -47,7 +51,51 @@ function* signin(action) {
   }
 }
 
+function* forgotPassword(action) {
+  const requestData = {
+    email: action.email,
+  };
+  try {
+    const data = yield call(
+      request,
+      '/auth/forgotpassword',
+      'POST',
+      requestData,
+      false,
+    );
+
+    yield put(forgotPasswordSuccess(data));
+    notify('success', 'Password Recovery Email is sent!');
+    history.push('/auth/login');
+  } catch (err) {
+    notify('error', err.message);
+    yield put(forgotPasswordError());
+  }
+}
+
+function* resetPassword(action) {
+  try {
+    const data = yield call(
+      request,
+      '/auth/resetpassword',
+      'POST',
+      action.data,
+      false,
+    );
+
+    yield put(resetPasswordSuccess(data));
+    notify('success', 'Password is reset!');
+    history.push('/auth/login');
+  } catch (err) {
+    notify('error', err.message);
+    yield put(resetPasswordError());
+  }
+}
+
+
 export function* authSaga() {
   yield takeLatest(CONSTANTS.SIGNUP_REQUEST, signup);
   yield takeLatest(CONSTANTS.LOGIN_REQUEST, signin);
+  yield takeLatest(CONSTANTS.FORGOTPASSWORD_REQUEST, forgotPassword);
+  yield takeLatest(CONSTANTS.RESETPASSWORD_REQUEST, resetPassword);
 }

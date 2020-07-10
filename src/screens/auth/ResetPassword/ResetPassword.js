@@ -11,8 +11,8 @@ import {
 } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { signupRequest } from '../redux/actions';
+import { Link, useLocation } from 'react-router-dom';
+import { resetPasswordRequest } from '../redux/actions';
 import { Icon } from '../../../components/Icon';
 
 const schema = Yup.object({
@@ -23,16 +23,25 @@ const schema = Yup.object({
   passwordConfirm: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match.')
     .required('Passwords must match.'),
-  firstName: Yup.string().required('The first name is required!'),
-  lastName: Yup.string().required('The last name is required!'),
 });
 
-const SignupPage = () => {
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+const ResetPasswordPage = ({ location }) => {
   const dispatch = useDispatch();
+  let query = useQuery();
+
+  const token = query.get("token");
+  const email = query.get("email");
+  
   const handleSubmit = values => {
-    const { email, password, firstName, lastName } = values;
-    dispatch(signupRequest({ email, password, firstName, lastName }));
+    const { email, password } = values;
+    dispatch(resetPasswordRequest({ email, password, token }));
   };
+
+ 
 
   return (
     <Container className="h-75">
@@ -40,72 +49,20 @@ const SignupPage = () => {
         <Col xs={5}>
           <Card>
             <Card.Header bg="secondary" className="text-center">
-              <h3>Register a new account</h3>
+              <h3>Reset Password</h3>
             </Card.Header>
             <Card.Body>
               <Formik
                 validationSchema={schema}
                 onSubmit={handleSubmit}
                 initialValues={{
-                  email: '',
+                  email: email,
                   password: '',
                   passwordConfirm: '',
-                  firstName: '',
-                  lastName: '',
                 }}
               >
                 {({ handleSubmit, handleChange, values, isValid, errors }) => (
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>First Name</Form.Label>
-                      </Col>
-                      <Col xs={9}>
-                        <InputGroup>
-                          <InputGroup.Prepend>
-                            <InputGroup.Text>
-                              <Icon name="user" />
-                            </InputGroup.Text>
-                          </InputGroup.Prepend>
-                          <Form.Control
-                            type="text"
-                            placeholder="Input your first name"
-                            name="firstName"
-                            value={values.firstName}
-                            onChange={handleChange}
-                            isInvalid={!!errors.firstName}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.firstName}
-                          </Form.Control.Feedback>
-                        </InputGroup>
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Last Name</Form.Label>
-                      </Col>
-                      <Col xs={9}>
-                        <InputGroup>
-                          <InputGroup.Prepend>
-                            <InputGroup.Text>
-                              <Icon name="user" />
-                            </InputGroup.Text>
-                          </InputGroup.Prepend>
-                          <Form.Control
-                            type="text"
-                            placeholder="Input your last name"
-                            name="lastName"
-                            value={values.lastName}
-                            onChange={handleChange}
-                            isInvalid={!!errors.lastName}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.lastName}
-                          </Form.Control.Feedback>
-                        </InputGroup>
-                      </Col>
-                    </Form.Group>
                     <Form.Group as={Row}>
                       <Col xs={3}>
                         <Form.Label>Email</Form.Label>
@@ -121,6 +78,7 @@ const SignupPage = () => {
                             type="text"
                             placeholder="Input your email"
                             name="email"
+                            disabled
                             value={values.email}
                             onChange={handleChange}
                             isInvalid={!!errors.email}
@@ -187,16 +145,11 @@ const SignupPage = () => {
                       type="submit"
                       disabled={!isValid}
                     >
-                      Register
+                      Reset Password
                     </Button>
                   </Form>
                 )}
               </Formik>
-              <Row>
-                <Col className="d-inline-flex justify-content-center mt-3">
-                  <Link to={'/auth/login'}>Click here to login</Link>
-                </Col>
-              </Row>
             </Card.Body>
           </Card>
         </Col>
@@ -205,4 +158,4 @@ const SignupPage = () => {
   );
 };
 
-export { SignupPage };
+export { ResetPasswordPage };

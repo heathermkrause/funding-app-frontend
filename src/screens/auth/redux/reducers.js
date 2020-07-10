@@ -30,6 +30,24 @@ const authReducer = (state = initialState, action) =>
       case CONSTANTS.SIGNUP_ERROR:
         draft.loading = false;
         break;
+      case CONSTANTS.FORGOTPASSWORD_REQUEST:
+        draft.loading = true;
+        break;
+      case CONSTANTS.FORGOTPASSWORD_SUCCESS:
+        draft.loading = false;
+        break;
+      case CONSTANTS.FORGOTPASSWORD_ERROR:
+        draft.loading = false;
+        break;
+      case CONSTANTS.RESETPASSWORD_REQUEST:
+        draft.loading = true;
+        break;
+      case CONSTANTS.RESETPASSWORD_SUCCESS:
+        draft.loading = false;
+        break;
+      case CONSTANTS.RESETPASSWORD_ERROR:
+        draft.loading = false;
+        break;
       case CONSTANTS.LOGOUT:
         draft.currentUser = null;
         draft.token = '';
