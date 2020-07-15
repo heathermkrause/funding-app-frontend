@@ -211,7 +211,7 @@ const Diagram = () => {
                     </a>
                 </OverlayTrigger>
                 <canvas id="diagram" ref={canvas} width={width} height={height}/>
-                <img className="logo" src={Mark} width={200} height={150}/>
+                <img className="logo" src={Mark} width={200} height={120}/>
                 <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
                 <Button onClick={exportSVG} variant="info" className="pull-left btn-export">Export SVG</Button>
             </Card.Body>

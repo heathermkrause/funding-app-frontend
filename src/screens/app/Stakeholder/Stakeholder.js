@@ -11,6 +11,7 @@ import {
   OverlayTrigger,
   Popover
 } from 'react-bootstrap';
+import { Table, InputGroup } from "react-bootstrap";
 import { Icon } from '../../../components/Icon';
 import { ConnectionTable } from '../Connection';
 import { Project } from '../Project';
@@ -98,9 +99,9 @@ const Stakeholder = () => {
 
     return stakeholders.map((sh, index) => (
       <Form.Group as={Row} key={sh._id} className="barlow-black-text">
-        <Form.Label column lg="3" xs="4">
+        {/* <Form.Label column lg="3" xs="4">
           Stakeholder Name{index+1}:
-        </Form.Label>
+        </Form.Label> */}
         {editId === sh._id
           ?
             <>
@@ -112,7 +113,7 @@ const Stakeholder = () => {
                   className="stakeholder-name"
                   placeholder={`stakeholder ${index}`}
                   required
-                />                
+                />
               </Col>
               <Col lg="2" xs="2" className="text-center pt-2 action-column">
                 <ConfirmButton onClick={() => onConfirmStakeholder()} />
@@ -192,8 +193,70 @@ const Stakeholder = () => {
                 </a>
               </OverlayTrigger>
 
-              {renderStakeholders()}
-              {newStakeholder && <Form.Group as={Row} className="barlow-black-text">
+              <Table striped bordered hover size="sm">
+                <thead className="barlow-black-text">
+                    <tr>
+                        <th className="text-center w-5"></th>
+                        <th className="text-center w-15">
+                            Stakeholder Name
+                        </th>
+                        <th className="text-center w-15"></th>
+                    </tr>
+                </thead>
+                <tbody className="barlow-light-text">
+                    {!!stakeholders.length &&
+                        stakeholders.map((sh, index) =>
+                              editId === sh._id ? (
+                                    <tr key={sh._id}>
+                                        <td className="text-center">#{index + 1}</td>
+                                        <td className="text-center">
+                                          <Form.Control
+                                            type="text"
+                                            value={get(stakeholder, 'name', '')}
+                                            onChange={onUpdateField('name')}
+                                            className="stakeholder-name"
+                                            placeholder={`stakeholder ${index}`}
+                                            required
+                                          />
+                                        </td>
+                                        <td className="text-center">
+                                          <ConfirmButton onClick={() => onConfirmStakeholder()} />
+                                          <CancelButton onClick={() => onCancelStakeholder()} />
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    <tr key={sh._id}>
+                                        <td className="text-center v-middle">#{index + 1}</td>
+                                        <td className="text-center v-middle break-word"><div className="stakeholder-name">{get(stakeholders,[index, 'name'], '')}</div></td>
+                                        <td className="text-center v-middle">
+                                          <EditButton onClick={() => onEditStakeholder(sh._id)} />
+                                          <DeleteButton onClick={() => onDeleteStakeholder(sh._id)} />
+                                        </td>
+                                    </tr>
+                                )
+                        )}
+                        {newStakeholder && 
+                            <tr>
+                              <td className="text-center">#{stakeholders.length + 1}</td>
+                              <td className="text-center">
+                                <Form.Control
+                                  type="text"
+                                  onChange={onUpdateField('name')}
+                                  className="stakeholder-name"
+                                  placeholder={`stakeholder name`}
+                                  required
+                                />
+                              </td>
+                              <td className="text-center">
+                                <ConfirmButton onClick={() => onConfirmStakeholder()} />
+                                <CancelButton onClick={() => onCancelStakeholder()} />
+                              </td>
+                          </tr>
+                        }
+                </tbody>
+            </Table>
+              {/* {renderStakeholders()} */}
+              {/* {newStakeholder && <Form.Group as={Row} className="barlow-black-text">
                   <Form.Label column lg="3" xs="4">
                     Stakeholder Name{stakeholders.length + 1}:
                   </Form.Label>
@@ -210,7 +273,7 @@ const Stakeholder = () => {
                     <CancelButton onClick={() => onCancelStakeholder()} />               
                   </Col>
                 </Form.Group>
-              }
+              } */}
               <Button variant="primary" className="pull-right btn-add" size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
             </Card.Body>
           </Card>
