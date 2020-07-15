@@ -50,6 +50,11 @@ const Stakeholder = () => {
     state => state.app.stakeholderState.stakeholders.totalCount,
   );
 
+  const projects = useSelector(
+    state => state.app.projectState.projects.list,
+  );
+
+
   // useEffect(() => {
   //   dispatch(stakeholderListRequest());
   // }, [currentUser, dispatch]);
@@ -200,7 +205,7 @@ const Stakeholder = () => {
                         <th className="text-center w-15">
                             Stakeholder Name
                         </th>
-                        <th className="text-center w-15"></th>
+                        <th className="text-center w-5"></th>
                     </tr>
                 </thead>
                 <tbody className="barlow-light-text">
@@ -274,7 +279,7 @@ const Stakeholder = () => {
                   </Col>
                 </Form.Group>
               } */}
-              <Button variant="primary" className="pull-right btn-add" size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
+              <Button variant="primary" className="pull-right btn-add" disabled={projects.length == 0} size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
             </Card.Body>
           </Card>
 

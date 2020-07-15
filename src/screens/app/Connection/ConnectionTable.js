@@ -36,6 +36,10 @@ const ConnectionTable = (props) => {
         state => state.app.projectState.project.data,
     );
 
+    const projects = useSelector(
+        state => state.app.projectState.projects.list,
+    );
+
     useEffect(() => {
         setConnectionDrafts(connections);
     }, [connections.length]);
@@ -313,6 +317,7 @@ const ConnectionTable = (props) => {
                 <Button
                     variant="primary"
                     className="pull-right btn-add"
+                    disabled={projects.length == 0 || stakeholders.length < 2}
                     onClick={() => onAddClick(connectionDrafts.length)}
                 >
                     +ADD
