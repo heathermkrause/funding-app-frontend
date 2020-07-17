@@ -56,7 +56,7 @@ export const makePoints = (centerX, centerY, radius, sides, startingAngle) => {
     for (let i = 0; i < sides; i++) {
         // console.log(angle * (180/Math.PI)); // => radians
         points.push(new Point(centerX + radius * Math.sin(angle) + 25,
-            centerY - radius * Math.cos(angle) + 60));
+            centerY - radius * Math.cos(angle) + 20)); // 20 : padding from the top
         angle += 2 * Math.PI / sides;
     }
 

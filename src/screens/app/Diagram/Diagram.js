@@ -60,11 +60,11 @@ const Diagram = () => {
 
     const drawDiagram = (ctx) => {
         ctx.clearRect(0, 0, width, height);
-        drawStandard(ctx);
+        //drawStandard(ctx);
         //drawLogo(ctx);
-        if (projects.length) {
-            drawProjectName(ctx);
-        }
+        // if (projects.length) {
+        //     drawProjectName(ctx);
+        // }
 
         if (!!stakeholders.length && !!connections.length) {
             const circleCenters = makePoints(width / 2-40, height / 2-40, polygonRadius, stakeholders.length, 0);
@@ -82,8 +82,8 @@ const Diagram = () => {
                 drawCircle(ctx, center.x, center.y);
                 // const text = stakeholders[index].name.length > 10 ? stakeholders[index].name.slice(0, 10) + '...' : stakeholders[index].name;
                 const [textArray, fontSize] = getFontInfo(stakeholders[index].name, circleRadius);
-                ctx.font = `${fontSize}px Barlow Black`;
-                ctx.font = `20px Barlow Black`;
+                ctx.font = `${fontSize}px Barlow Light`;
+                // ctx.font = `20px Barlow Black`;
                 ctx.textAlign = 'center';
                 ctx.fillStyle = circleTextColor;
 
@@ -197,7 +197,7 @@ const Diagram = () => {
             <Card.Body ref={cardRef} className="diagramBody">
                 <div className="flex-item-between">
                     <div className="flex-item">
-                        <div className="flex-item flow-item">
+                        <div className="flex-item flow-item barlow-black-text">
                             <img src={SquareImgData} alt="" className="square"/>
                             <p className="data">Data</p>
                             <img src={ArrowImgData} alt="" className="arrow"/>
@@ -218,7 +218,7 @@ const Diagram = () => {
                         placement="bottom"
                         overlay={
                             <Popover id={`popover-positioned-buttom`}>
-                                <Popover.Title as="h3">Digram!</Popover.Title>
+                                <Popover.Title as="h3">Diagram!</Popover.Title>
                                 <Popover.Content>
                                     This is a Diagram showing the relationship between stakeholders.
                                 </Popover.Content>
@@ -243,7 +243,7 @@ const Diagram = () => {
                 <div className="flex-item-between mt10">
                     <div className="flex-item header-title">
                         <img src={FileImg} alt="" className="file-img"/>
-                        <p>Project Name</p>
+                        <p className="barlow-black-text">{projects.length ? projects[0].name : ''}</p>
                     </div>
                     <div>
                         <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
