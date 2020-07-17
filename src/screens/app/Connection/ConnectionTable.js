@@ -165,44 +165,71 @@ const ConnectionTable = (props) => {
     return (
         <Card className="bg-light mt-5 px-5 py-4">
             <Card.Body>
-                <OverlayTrigger
-                    trigger="click"
-                    placement="bottom"
-                    overlay={
-                        <Popover id={`popover-positioned-buttom`}>
-                            <Popover.Title as="h3">Connection!</Popover.Title>
-                            <Popover.Content>
-                                This is the table for the relationship between stakeholders.
-                            </Popover.Content>
-                        </Popover>
-                    }
-                >
-                    <a
-                        href="#"
-                        className="position-absolute"
-                        style={{
-                            "top": "15px",
-                            "right": "20px",
-                            "fontSize": "22px",
-                            "color": "#312975"
-                        }}
-                    >
+                <div className="flex-item-between mt10">
+                    <div className="flex-item header-title">
                         <Icon name="question-circle" />
-                    </a>
-                </OverlayTrigger>
-                <InputGroup className="w-50">
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>
-                            <Icon name="search" />
-                        </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control
-                        type="text"
-                        placeholder="Search"
-                        name="firstName"
-                        onChange={handleSearchChange}
-                    />
-                </InputGroup>
+                        <p>Connection</p>
+                    </div> 
+                    <OverlayTrigger
+                        trigger="click"
+                        placement="bottom"
+                        overlay={
+                            <Popover id={`popover-positioned-buttom`}>
+                                <Popover.Title as="h3">Connection!</Popover.Title>
+                                <Popover.Content>
+                                    This is the table for the relationship between stakeholders.
+                                </Popover.Content>
+                            </Popover>
+                        }
+                    >
+                        <a
+                            href="#"
+                            className="pull-right"
+                            style={{
+                                "top": "15px",
+                                "right": "20px",
+                                "fontSize": "22px",
+                                "color": "#312975"
+                            }}
+                        >
+                            <Icon name="question-circle" />
+                        </a>
+                    </OverlayTrigger>
+                </div>
+                <hr/>
+                <div className="flex-item-between mt10">
+                    <InputGroup className="w-50">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text>
+                                <Icon name="search" />
+                            </InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control
+                            type="text"
+                            placeholder="Search"
+                            name="firstName"
+                            onChange={handleSearchChange}
+                        />
+                    </InputGroup>
+                    <div className="btn-group">
+                        <Button
+                            variant="primary"
+                            className="pull-right btn-add"
+                            disabled={projects.length == 0 || stakeholders.length < 2}
+                            onClick={() => onAddClick(connectionDrafts.length)}
+                        >
+                            +ADD
+                        </Button>
+                        <Button
+                            variant="info"
+                            className="pull-right block mb-3 mr-3 btn-export"
+                            onClick={handleExportCSV}
+                        >
+                            <Icon className="mr-1" name="file"></Icon>
+                            EXPORT CSV
+                        </Button>
+                    </div>                    
+                </div>
                 <Table striped bordered hover size="sm">
                     <thead className="barlow-black-text">
                         <tr>
@@ -313,23 +340,7 @@ const ConnectionTable = (props) => {
                                     )
                             )}
                     </tbody>
-                </Table>
-                <Button
-                    variant="primary"
-                    className="pull-right btn-add"
-                    disabled={projects.length == 0 || stakeholders.length < 2}
-                    onClick={() => onAddClick(connectionDrafts.length)}
-                >
-                    +ADD
-                </Button>
-                <Button
-                    variant="info"
-                    className="pull-right block mb-3 mr-3 btn-export"
-                    onClick={handleExportCSV}
-                >
-                    <Icon className="mr-1" name="file"></Icon>
-                    EXPORT CSV
-                </Button>
+                </Table>                
             </Card.Body>
         </Card>
     );

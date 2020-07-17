@@ -14,6 +14,9 @@ const AppScreens = () => {
   return (
     <>
       <TopBar currentUser={currentUser} />
+      <div className="background-image">
+        <div className="inner"></div>
+      </div>
       <Switch>
         <Route exact path="/" component={Stakeholder} />
         {isAdmin(currentUser) && (

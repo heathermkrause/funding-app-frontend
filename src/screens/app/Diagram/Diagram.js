@@ -73,6 +73,7 @@ const Diagram = () => {
                 // const text = stakeholders[index].name.length > 10 ? stakeholders[index].name.slice(0, 10) + '...' : stakeholders[index].name;
                 const [textArray, fontSize] = getFontInfo(stakeholders[index].name, circleRadius);
                 ctx.font = `${fontSize}px Barlow Black`;
+                ctx.font = `20px Barlow Black`;
                 ctx.textAlign = 'center';
                 ctx.fillStyle = circleTextColor;
 
@@ -184,7 +185,6 @@ const Diagram = () => {
     return (
         <Card className="bg-light mt-5 px-5 position-relative">
             <Card.Body ref={cardRef} className="diagramBody">
-        
                 <OverlayTrigger
                     trigger="click"
                     placement="bottom"
@@ -210,10 +210,10 @@ const Diagram = () => {
                         <Icon name="question-circle" />
                     </a>
                 </OverlayTrigger>
-                <canvas id="diagram" ref={canvas} width={width} height={height}/>
-                <img className="logo" src={Mark} width={200} height={120}/>
                 <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
                 <Button onClick={exportSVG} variant="info" className="pull-left btn-export">Export SVG</Button>
+                <canvas id="diagram" ref={canvas} width={width} height={height}/>
+                <img className="logo" src={Mark} width={200} height={120}/>
             </Card.Body>
         </Card>
     )

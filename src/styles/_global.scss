@@ -37,6 +37,33 @@ html {
 
 .app-content {
   height: 100%;
+  position: relative;
+  .background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .inner {
+      background-image: url(/static/media/company-logo.d3afbf43.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0.1;
+      height: 760px;
+      width: 100%;
+    } 
+  }
+}
+
+.connection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .input-group {
+    margin-bottom: 15px;
+  }
 }
 
 a:hover {
@@ -103,6 +130,11 @@ th {
     cursor: pointer;
 }
 
+.table thead th {
+  background-color: #544495;
+  color: white;
+}
+
 content-center {
     display: flex;
     justify-content: center;
@@ -124,6 +156,57 @@ table {
 
 .v-middle {
     vertical-align: middle !important;
+}
+
+.btn {
+  background-color: white !important;
+  border: 2px solid #312975 !important;
+  margin: 0px 3px !important;
+  color: #312975 !important;
+  &:hover {
+    background-color: #312975 !important;
+    color: white !important;
+  }
+}
+
+.flex-item-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  p {
+    margin: 0px;
+  }
+}
+
+.header-title {
+  span {
+    font-size: 30px;
+    margin-right: 10px;
+    color: #544495;
+  }
+  p {
+    color: #8C8C8C;
+    font-size: 17px;
+    font-weight: 600;
+  }
+}
+
+.pull-right.btn-add.special {
+  margin-bottom: 15px !important;
+}
+
+.mt10 {
+  margin-bottom: 15px;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.flex-item {
+  display: flex;
+  align-items: center;
 }
 
 .bg-dark-purple {
@@ -165,41 +248,36 @@ table {
 }
 
 .btn-secondary {
-    @extend .bg-light-purple;
+    //@extend .bg-light-purple;
 }
 .btn-danger {
-    @extend .bg-light-red;
+    //@extend .bg-light-red;
 }
 
-.btn-add {
-  background: #FAB437 !important;
-  border-color:#FAB437 !important;
-  color: black;
+.btn-add, .btn-export {
+  background: white !important;
+  border: 2px solid #544495 !important;
+  color: #544495;
+  border-radius: 3px;
 
   &:hover {
-    background: #f1a726 !important;
-    border-color:#f1a726 !important;
-    color: black;
-  }
-}
-
-.btn-export {
-  background: #8FC2FF !important;
-  border-color: #8FC2FF !important;
-
-  &:hover {
-    background: #6eacf8 !important;
-    border-color:#6eacf8 !important;
+    background: #544495 !important;
+    border-color: white !important;
+    color: white;
   }
 }
 
 .bg-light {
-  background: #F3ECE1 !important;
-  box-shadow: 3px 3px #888888;
+  box-shadow: 3px 4px 5px #00000029;
+  background: #FFFFFF !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #b8b0a3;
+  background-color: #FFFFFF;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #F6F4FC;
 }
 
 .barlow-black-text {

@@ -164,40 +164,50 @@ const Stakeholder = () => {
   return (
     <Container fluid>
       <Row>
-        <Col lg={5}>
-
+        <Col lg={6}>
           <Project />
-
-          <Card className="bg-light mt-5 px-5 position-relative">
+          <ConnectionTable />
+        </Col>
+        <Col lg={6}>
+        <Card className="bg-light mt-5 px-5 position-relative">
             
             <Card.Body>
+              <div className="flex-item-between mt10">
+                <div className="flex-item header-title">
+                    <Icon name="question-circle" />
+                    <p>Stakeholder</p>
+                </div>
+                <div>                   
+                  <OverlayTrigger
+                    trigger="click"
+                    placement="bottom"
+                    overlay={
+                      <Popover id={`popover-positioned-buttom`}>
+                        <Popover.Title as="h3">Stakeholder!</Popover.Title>
+                        <Popover.Content>
+                          You can manage the stakeholders.
+                        </Popover.Content>
+                      </Popover>
+                    }
+                  >
+                    <a
+                      href="#"
+                      className="pull-right"
+                      style={{
+                        "top": "15px",
+                        "right": "20px",
+                        "fontSize": "22px",
+                        "color": "#312975"
+                      }}
+                    >
+                      <Icon name="question-circle" />
+                    </a>
+                  </OverlayTrigger>                  
+                </div>                
+              </div>
               
-              <OverlayTrigger
-                trigger="click"
-                placement="bottom"
-                overlay={
-                  <Popover id={`popover-positioned-buttom`}>
-                    <Popover.Title as="h3">Stakeholder!</Popover.Title>
-                    <Popover.Content>
-                      You can manage the stakeholders.
-                    </Popover.Content>
-                  </Popover>
-                }
-              >
-                <a
-                  href="#"
-                  className="position-absolute"
-                  style={{
-                    "top": "15px",
-                    "right": "20px",
-                    "fontSize": "22px",
-                    "color": "#312975"
-                  }}
-                >
-                  <Icon name="question-circle" />
-                </a>
-              </OverlayTrigger>
-
+              <hr/>
+              <Button variant="primary" className="pull-right btn-add special" disabled={projects.length == 0} size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
               <Table striped bordered hover size="sm">
                 <thead className="barlow-black-text">
                     <tr>
@@ -278,15 +288,9 @@ const Stakeholder = () => {
                     <CancelButton onClick={() => onCancelStakeholder()} />               
                   </Col>
                 </Form.Group>
-              } */}
-              <Button variant="primary" className="pull-right btn-add" disabled={projects.length == 0} size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
+              } */}              
             </Card.Body>
           </Card>
-
-          <ConnectionTable />
-          
-        </Col>
-        <Col lg={7}>
           <Diagram />
         </Col>
       </Row>

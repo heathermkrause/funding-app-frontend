@@ -106,40 +106,44 @@ const Project = () => {
     return (
         <Card className="bg-light mt-5 px-5 position-relative">
             <Card.Body>
-                <OverlayTrigger
-                    trigger="click"
-                    placement="bottom"
-                    overlay={
-                        <Popover id={`popover-positioned-buttom`}>
-                            <Popover.Title as="h3">Project Name!</Popover.Title>
-                            <Popover.Content>
-                                You can create and update a project.
-                            </Popover.Content>
-                        </Popover>
-                    }
-                >
-                    <a
-                        href="#"
-                        className="position-absolute"
-                        style={{
-                            "top": "15px",
-                            "right": "20px",
-                            "fontSize": "22px",
-                            "color": "#312975"
-                        }}
+                <div className="flex-item-between mt10">
+                    <div className="flex-item header-title">
+                        <Icon name="clipboard"></Icon>
+                        <p>Project Name</p>
+                    </div>                    
+                    <OverlayTrigger
+                        trigger="click"
+                        placement="bottom"
+                        overlay={
+                            <Popover id={`popover-positioned-buttom`}>
+                                <Popover.Title as="h3">Project Name!</Popover.Title>
+                                <Popover.Content>
+                                    You can create and update a project.
+                                </Popover.Content>
+                            </Popover>
+                        }
                     >
-                        <Icon name="question-circle" />
-                    </a>
-                </OverlayTrigger>
+                        <a
+                            href="#"
+                            className="pull-right"
+                            style={{
+                                "top": "15px",
+                                "right": "20px",
+                                "fontSize": "22px",
+                                "color": "#312975"
+                            }}
+                        >
+                            <Icon name="question-circle" />
+                        </a>
+                    </OverlayTrigger>
+                </div>
 
-                <Form.Group as={Row} >
-                    <Form.Label column lg="3" xs="4" className="barlow-black-text">
-                        Project Name:
-                    </Form.Label>
+                <hr/>
+                <Form.Group as={Row} >                    
                     {editMode
                         ?
                         <>
-                            <Col lg="7" xs="6" className="pt-2">
+                            <Col lg="12" xs="12" className="pt-1">
                                 <Form.Control
                                     type="text"
                                     className="barlow-light-text"
@@ -156,9 +160,9 @@ const Project = () => {
                         </>
                         :
                         <>
-                            <Col lg="7" xs="6" className="pt-2">
+                            <Col lg="12" xs="12" className="pt-1">
                                 <select
-                                    className="custom-select custom-select-sm barlow-light-text"
+                                    className="custom-select custom-select-md barlow-light-text"
                                     value={project._id}
                                     onChange={(e) => onSelectProject(e)}
                                 >
@@ -169,7 +173,7 @@ const Project = () => {
                                     ))}
                                 </select>
                             </Col>
-                            <Col lg="2" xs="2" className="pt-2 text-center action-column">
+                            <Col lg="12" xs="12" className="pt-4 flex-end">
                                 <EditButton onClick={()=>onEditProject()} />
                                 <DeleteButton onClick={()=>onDeleteProject()} />
                                 <AddButton onClick={()=>onAddProject()} />
