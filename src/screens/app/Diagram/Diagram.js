@@ -13,6 +13,16 @@ import { Icon } from '../../../components/Icon';
 import { makePoints, getArrowPoints, drawArrow, getFontInfo } from './util';
 import Mark from '../../../assets/company-mark.png';
 
+import QuestionImg from '../../../assets/question.svg';
+import FileImg from '../../../assets/file.svg';
+
+import SquareImgData from '../../../assets/square_data.svg';
+import ArrowImgData from '../../../assets/arrow_data.svg';
+import SquareImgFunding from '../../../assets/square_funding.svg';
+import ArrowImgFunding from '../../../assets/arrow_funding.svg';
+import SquareImgInfluence from '../../../assets/square_influence.svg';
+import ArrowImgInfluence from '../../../assets/arrow_influence.svg';
+
 const circleBgColor = '#312975';
 const circleTextColor = 'white';
 const Diagram = () => {
@@ -185,33 +195,61 @@ const Diagram = () => {
     return (
         <Card className="bg-light mt-5 px-5 position-relative">
             <Card.Body ref={cardRef} className="diagramBody">
-                <OverlayTrigger
-                    trigger="click"
-                    placement="bottom"
-                    overlay={
-                        <Popover id={`popover-positioned-buttom`}>
-                            <Popover.Title as="h3">Digram!</Popover.Title>
-                            <Popover.Content>
-                                This is a Diagram showing the relationship between stakeholders.
-                            </Popover.Content>
-                        </Popover>
-                    }
-                >
-                    <a
-                        href="#"
-                        className="position-absolute"
-                        style={{
-                            "top": "15px",
-                            "right": "20px",
-                            "fontSize": "22px",
-                            "color": "#312975"
-                        }}
+                <div className="flex-item-between">
+                    <div className="flex-item">
+                        <div className="flex-item flow-item">
+                            <img src={SquareImgData} alt="" className="square"/>
+                            <p className="data">Data</p>
+                            <img src={ArrowImgData} alt="" className="arrow"/>
+                        </div>
+                        <div className="flex-item flow-item">
+                            <img src={SquareImgFunding} alt="" className="square"/>
+                            <p className="funding">Funding</p>
+                            <img src={ArrowImgFunding} alt="" className="arrow"/>
+                        </div>
+                        <div className="flex-item flow-item">
+                            <img src={SquareImgInfluence} alt="" className="square"/>
+                            <p className="influence">Influence</p>
+                            <img src={ArrowImgInfluence} alt="" className="arrow"/>
+                        </div>
+                    </div>
+                    <OverlayTrigger
+                        trigger="click"
+                        placement="bottom"
+                        overlay={
+                            <Popover id={`popover-positioned-buttom`}>
+                                <Popover.Title as="h3">Digram!</Popover.Title>
+                                <Popover.Content>
+                                    This is a Diagram showing the relationship between stakeholders.
+                                </Popover.Content>
+                            </Popover>
+                        }
                     >
-                        <Icon name="question-circle" />
-                    </a>
-                </OverlayTrigger>
-                <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
-                <Button onClick={exportSVG} variant="info" className="pull-left btn-export">Export SVG</Button>
+                        <a
+                            href="#"
+                            className=""
+                            style={{
+                                "top": "15px",
+                                "right": "20px",
+                                "fontSize": "22px",
+                                "color": "#312975"
+                            }}
+                        >
+                            <img src={QuestionImg} alt="" className="quiz"/>
+                        </a>
+                    </OverlayTrigger>
+                </div>                
+                <hr/>
+                <div className="flex-item-between mt10">
+                    <div className="flex-item header-title">
+                        <img src={FileImg} alt="" className="file-img"/>
+                        <p>Project Name</p>
+                    </div>
+                    <div>
+                        <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
+                        <Button onClick={exportSVG} variant="info" className="pull-left btn-export">Export SVG</Button>
+                    </div>                     
+                </div>                
                 <canvas id="diagram" ref={canvas} width={width} height={height}/>
                 <img className="logo" src={Mark} width={200} height={120}/>
             </Card.Body>

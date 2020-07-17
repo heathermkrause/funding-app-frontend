@@ -32,6 +32,9 @@ import {
 } from '../../../components/Buttons/Buttons';
 import { Diagram } from '../Diagram';
 
+import QuestionImg from '../../../assets/question.svg';
+import FileImg from '../../../assets/file.svg';
+
 const Stakeholder = () => {
   
   const dispatch = useDispatch();
@@ -174,7 +177,7 @@ const Stakeholder = () => {
             <Card.Body>
               <div className="flex-item-between mt10">
                 <div className="flex-item header-title">
-                    <Icon name="question-circle" />
+                    <img src={FileImg} alt="" className="file-img"/>
                     <p>Stakeholder</p>
                 </div>
                 <div>                   
@@ -200,7 +203,7 @@ const Stakeholder = () => {
                         "color": "#312975"
                       }}
                     >
-                      <Icon name="question-circle" />
+                      <img src={QuestionImg} alt="" className="quiz"/>
                     </a>
                   </OverlayTrigger>                  
                 </div>                

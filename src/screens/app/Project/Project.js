@@ -29,6 +29,9 @@ import {
 
 import { Icon } from '../../../components/Icon';
 
+import QuestionImg from '../../../assets/question.svg';
+import FileImg from '../../../assets/file.svg';
+
 const Project = () => {
 
     const dispatch = useDispatch();
@@ -108,7 +111,7 @@ const Project = () => {
             <Card.Body>
                 <div className="flex-item-between mt10">
                     <div className="flex-item header-title">
-                        <Icon name="clipboard"></Icon>
+                        <img src={FileImg} alt="" className="file-img"/>
                         <p>Project Name</p>
                     </div>                    
                     <OverlayTrigger
@@ -133,7 +136,7 @@ const Project = () => {
                                 "color": "#312975"
                             }}
                         >
-                            <Icon name="question-circle" />
+                            <img src={QuestionImg} alt="" className="quiz"/>
                         </a>
                     </OverlayTrigger>
                 </div>
@@ -143,7 +146,7 @@ const Project = () => {
                     {editMode
                         ?
                         <>
-                            <Col lg="12" xs="12" className="pt-1">
+                            <Col lg="12" xs="12">
                                 <Form.Control
                                     type="text"
                                     className="barlow-light-text"
@@ -153,14 +156,14 @@ const Project = () => {
                                     required
                                 />
                             </Col>
-                            <Col lg="2" xs="2" className="pt-2 text-center action-column">
+                            <Col lg="12" xs="12" className="pt-4 flex-end">
                                 <ConfirmButton onClick={onConfirmProject} />
                                 <CancelButton onClick={onCancelProject} />
                             </Col>
                         </>
                         :
                         <>
-                            <Col lg="12" xs="12" className="pt-1">
+                            <Col lg="12" xs="12">
                                 <select
                                     className="custom-select custom-select-md barlow-light-text"
                                     value={project._id}

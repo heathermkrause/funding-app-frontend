@@ -15,6 +15,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { resetPasswordRequest } from '../redux/actions';
 import { Icon } from '../../../components/Icon';
 
+import Logo from '../../../assets/company-logo.png';
+
 const schema = Yup.object({
   email: Yup.string()
     .email('Email must be valid')
@@ -45,8 +47,11 @@ const ResetPasswordPage = ({ location }) => {
 
   return (
     <Container className="h-75">
-      <Row className="h-100 align-items-center justify-content-center">
+      <Row className="h-100 align-items-center justify-content-center"> 
         <Col xs={5}>
+          <div className="logo-part">
+            <img src={Logo} alt="" className="auth-logo"/>
+          </div>
           <Card>
             <Card.Header bg="secondary" className="text-center">
               <h3>Reset Password</h3>
@@ -63,11 +68,8 @@ const ResetPasswordPage = ({ location }) => {
               >
                 {({ handleSubmit, handleChange, values, isValid, errors }) => (
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Email</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                    <Form.Group as={Row}>                      
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
@@ -90,14 +92,11 @@ const ResetPasswordPage = ({ location }) => {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Password</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
-                              <Icon name="key" />
+                              <Icon name="lock" />
                             </InputGroup.Text>
                           </InputGroup.Prepend>
                           <Form.Control
@@ -114,15 +113,12 @@ const ResetPasswordPage = ({ location }) => {
                         </InputGroup>
                       </Col>
                     </Form.Group>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Confirm Password</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                    <Form.Group as={Row}>            
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
-                              <Icon name="key" />
+                              <Icon name="lock" />
                             </InputGroup.Text>
                           </InputGroup.Prepend>
                           <Form.Control
@@ -139,14 +135,16 @@ const ResetPasswordPage = ({ location }) => {
                         </InputGroup>
                       </Col>
                     </Form.Group>
-                    <Button
-                      block
-                      variant="secondary"
-                      type="submit"
-                      disabled={!isValid}
-                    >
-                      Reset Password
-                    </Button>
+                    <div className="text-center flex-center auth-btn">
+                      <Button
+                        block
+                        variant="secondary"
+                        type="submit"
+                        disabled={!isValid}
+                      >
+                        Reset Password
+                      </Button>
+                    </div>                    
                   </Form>
                 )}
               </Formik>

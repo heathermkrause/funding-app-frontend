@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import { signupRequest } from '../redux/actions';
 import { Icon } from '../../../components/Icon';
 
+import Logo from '../../../assets/company-logo.png';
+
 const schema = Yup.object({
   email: Yup.string()
     .email('Email must be valid')
@@ -38,9 +40,12 @@ const SignupPage = () => {
     <Container className="h-75">
       <Row className="h-100 align-items-center justify-content-center">
         <Col xs={5}>
+          <div className="logo-part">
+            <img src={Logo} alt="" className="auth-logo"/>
+          </div> 
           <Card>
             <Card.Header bg="secondary" className="text-center">
-              <h3>Register a new account</h3>
+              <h3>REGISTER A NEW ACCOUNT</h3>
             </Card.Header>
             <Card.Body>
               <Formik
@@ -56,11 +61,8 @@ const SignupPage = () => {
               >
                 {({ handleSubmit, handleChange, values, isValid, errors }) => (
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>First Name</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                    <Form.Group as={Row}>                      
+                      <Col xs={6}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
@@ -80,12 +82,7 @@ const SignupPage = () => {
                           </Form.Control.Feedback>
                         </InputGroup>
                       </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Last Name</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                      <Col xs={6}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
@@ -106,11 +103,8 @@ const SignupPage = () => {
                         </InputGroup>
                       </Col>
                     </Form.Group>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Email</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                    <Form.Group as={Row}>                      
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
@@ -132,14 +126,11 @@ const SignupPage = () => {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Password</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
-                              <Icon name="key" />
+                              <Icon name="lock" />
                             </InputGroup.Text>
                           </InputGroup.Prepend>
                           <Form.Control
@@ -157,14 +148,11 @@ const SignupPage = () => {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Confirm Password</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
-                              <Icon name="key" />
+                              <Icon name="lock" />
                             </InputGroup.Text>
                           </InputGroup.Prepend>
                           <Form.Control
@@ -181,19 +169,21 @@ const SignupPage = () => {
                         </InputGroup>
                       </Col>
                     </Form.Group>
-                    <Button
-                      block
-                      variant="secondary"
-                      type="submit"
-                      disabled={!isValid}
-                    >
-                      Register
-                    </Button>
+                    <div className="text-center flex-center auth-btn">
+                      <Button
+                        block
+                        variant="secondary"
+                        type="submit"
+                        disabled={!isValid}
+                      >
+                        Register
+                      </Button>
+                    </div>                    
                   </Form>
                 )}
               </Formik>
               <Row>
-                <Col className="d-inline-flex justify-content-center mt-3">
+                <Col className="d-inline-flex justify-content-center mt-3 link-group">
                   <Link to={'/auth/login'}>Click here to login</Link>
                 </Col>
               </Row>

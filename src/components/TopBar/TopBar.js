@@ -7,6 +7,7 @@ import { Icon } from '../Icon';
 import { logout } from '../../screens/auth/redux/actions';
 import { isAdmin } from '../../utils/permission';
 import Logo from '../../assets/company-logo.png';
+import Avatar from '../../assets/avatar.png';
 
 const TopBar = ({ currentUser }) => {
   const dispatch = useDispatch();
@@ -41,8 +42,11 @@ const TopBar = ({ currentUser }) => {
             </>
           )}
         </Nav>
-        <Nav>
-          <Nav.Link as={Link} to="/profile">{`${firstName} ${lastName} (${role})`}</Nav.Link>
+        <Nav className="flex-item">
+          <div className="flex-item">
+            <img src={Avatar} alt="" className="avatar"/>
+            <Nav.Link as={Link} to="/profile">{`${firstName} ${lastName} (${role})`}</Nav.Link>
+          </div>          
           <Nav.Link as={Link} to="/logout" onClick={handleLogout}>
             Logout&nbsp;
             <Icon name="sign-out" />

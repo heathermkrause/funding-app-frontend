@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import { forgotPasswordRequest } from '../redux/actions';
 import { Icon } from '../../../components/Icon';
 
+import Logo from '../../../assets/company-logo.png';
+
 const schema = yup.object({
   email: yup
     .string()
@@ -33,6 +35,9 @@ const ForgotPasswordPage = () => {
     <Container className="h-75">
       <Row className="h-100 align-items-center justify-content-center">
         <Col xs={5}>
+          <div className="logo-part">
+            <img src={Logo} alt="" className="auth-logo"/>
+          </div>
           <Card>
             <Card.Header className="text-center">
               <h3>Forgot Password? </h3>
@@ -49,10 +54,7 @@ const ForgotPasswordPage = () => {
                 {({ handleSubmit, handleChange, values, isValid, errors }) => (
                   <Form onSubmit={handleSubmit}>
                     <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Email</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
@@ -73,19 +75,21 @@ const ForgotPasswordPage = () => {
                         </InputGroup>
                       </Col>
                     </Form.Group>
-                    <Button
-                      block
-                      variant="secondary"
-                      type="submit"
-                      disabled={!isValid}
-                    >
-                      Send
-                    </Button>
+                    <div className="text-center flex-center auth-btn">
+                      <Button
+                        block
+                        variant="secondary"
+                        type="submit"
+                        disabled={!isValid}
+                      >
+                        Send
+                      </Button>
+                    </div>                    
                   </Form>
                 )}
               </Formik>
               <Row>
-                <Col className="d-inline-flex justify-content-center mt-3">
+                <Col className="d-inline-flex justify-content-center link-group mt-3">
                   <Link to={'/auth/login'}>Go back to login</Link>
                 </Col>
               </Row>

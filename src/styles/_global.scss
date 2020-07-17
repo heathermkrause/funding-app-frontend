@@ -35,6 +35,18 @@ html {
   }
 }
 
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+
+.logo-part {
+  text-align: center;
+  margin-bottom: 15px;
+  img {
+    width: 110px;
+  }
+}
+
 .app-content {
   height: 100%;
   position: relative;
@@ -179,10 +191,8 @@ table {
 }
 
 .header-title {
-  span {
-    font-size: 30px;
+  img {
     margin-right: 10px;
-    color: #544495;
   }
   p {
     color: #8C8C8C;
@@ -207,6 +217,9 @@ table {
 .flex-item {
   display: flex;
   align-items: center;
+  img.avatar {
+    width: 30px;
+  }
 }
 
 .bg-dark-purple {
@@ -262,7 +275,6 @@ table {
 
   &:hover {
     background: #544495 !important;
-    border-color: white !important;
     color: white;
   }
 }
@@ -292,8 +304,16 @@ table {
   text-align: center;
 }
 
+.card {
+  box-shadow: 3px 4px 5px #00000029;
+  h3 {
+    margin: 0px;
+  }
+}
+
 .card-header, .card-footer {
-  background: #F3ECE1;
+  background: #544495;
+  color: white;
 }
 
 .action-column {
@@ -309,4 +329,84 @@ table {
     bottom: 0;
   }
 }
+
+.card-body {
+  .form-group {
+    margin: 20px 0px;
+  }
+  .input-group-prepend {
+    .input-group-text {
+      height: 40px;
+      width: 40px;
+      background: #544495;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        font-size: 22px;
+      }
+    }  
+  }
+  .input-group {
+    input {
+      height: 40px;
+    }
+  }
+  .auth-btn {
+    .btn {
+      width: 200px;
+    }
+  }  
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.link-group a {
+  color: #544495;
+  font-weight: bold;
+}
+
+.flex-item-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+img.quiz {
+  width: 20px;
+}
+
+img.file-img {
+  width: 30px;
+}
+
+.flow-item {
+  margin-right: 25px;
+  img.square {
+    width: 20px;
+    margin-right: 10px;
+  }
+  p {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  p.data {
+    color: #544495;
+  }
+  p.funding {
+    color: #FFA500;
+  }
+  p.influence {
+    color: #CB0202;
+  }
+  img.arrow {
+    width: 30px;
+    margin-left: 10px;
+  }
+}
+
 

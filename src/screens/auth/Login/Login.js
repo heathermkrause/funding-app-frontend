@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import { loginRequest } from '../redux/actions';
 import { Icon } from '../../../components/Icon';
 
+import Logo from '../../../assets/company-logo.png';
+
 const schema = yup.object({
   email: yup
     .string()
@@ -34,9 +36,12 @@ const LoginPage = () => {
     <Container className="h-75">
       <Row className="h-100 align-items-center justify-content-center">
         <Col xs={5}>
+          <div className="logo-part">
+            <img src={Logo} alt="" className="auth-logo"/>
+          </div>          
           <Card>
             <Card.Header className="text-center">
-              <h3>Log in</h3>
+              <h3>LOG IN</h3>
             </Card.Header>
             <Card.Body>
               <Formik
@@ -49,11 +54,8 @@ const LoginPage = () => {
               >
                 {({ handleSubmit, handleChange, values, isValid, errors }) => (
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Email</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                    <Form.Group as={Row}>                      
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
@@ -74,15 +76,12 @@ const LoginPage = () => {
                         </InputGroup>
                       </Col>
                     </Form.Group>
-                    <Form.Group as={Row}>
-                      <Col xs={3}>
-                        <Form.Label>Password</Form.Label>
-                      </Col>
-                      <Col xs={9}>
+                    <Form.Group as={Row}>                     
+                      <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Prepend>
                             <InputGroup.Text>
-                              <Icon name="key" />
+                              <Icon name="lock" />
                             </InputGroup.Text>
                           </InputGroup.Prepend>
                           <Form.Control
@@ -99,27 +98,32 @@ const LoginPage = () => {
                         </Form.Control.Feedback>
                       </Col>
                     </Form.Group>
-                    <Button
-                      block
-                      variant="secondary"
-                      type="submit"
-                      disabled={!isValid}
-                    >
-                      Log in
-                    </Button>
+                    <div className="text-center flex-center auth-btn">
+                      <Button
+                        block
+                        variant="secondary"
+                        type="submit"
+                        disabled={!isValid}                        
+                      >
+                        Log in
+                      </Button>
+                    </div>                    
                   </Form>
                 )}
               </Formik>
-              <Row>
-                <Col className="d-inline-flex justify-content-center mt-3">
-                  <Link to={'/auth/signup'}>Click here to register</Link>
-                </Col>
-              </Row>
-              <Row>
-                <Col className="d-inline-flex justify-content-center">
-                  <Link to={'/auth/forgot-password'}>Forgot Password?</Link>
-                </Col>
-              </Row>
+              <div className="flex-center mt-3 link-group">
+                <Row>
+                  <Col className="d-inline-flex justify-content-center">
+                    <Link to={'/auth/forgot-password'}>Forgot Password?</Link>
+                  </Col>
+                </Row>
+                <div className="mx-4"> | </div>
+                <Row>
+                  <Col className="d-inline-flex justify-content-center">
+                    <Link to={'/auth/signup'}>Click here to register</Link>
+                  </Col>
+                </Row>                
+              </div>              
             </Card.Body>
           </Card>
         </Col>
