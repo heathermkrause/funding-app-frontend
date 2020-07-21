@@ -409,4 +409,27 @@ img.file-img {
   }
 }
 
-
+// ToolTip Style
+.popover-header {
+  background-color: #544495;
+  color: white;
+  border: none;
+  border-radius: 0px;
+  &::before {
+    border: none !important;
+  }
+}
+.bs-popover-bottom > .arrow::after {
+  border-bottom-color: #544495;
+}
+.popover {
+  background-color: #ebeef3;
+  border: none;
+  border-radius: 0px;
+}
+.popover-body {
+  border: none;
+}
+.user-main {
+  position: relative;
+}

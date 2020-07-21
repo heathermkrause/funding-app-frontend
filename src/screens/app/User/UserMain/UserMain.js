@@ -98,7 +98,7 @@ const UserMain = () => {
     ));
   };
   return (
-    <Container className="pt-5">
+    <Container className="pt-5 user-main">
       <Row className="card-header">
         <Col sm={6}>
           <h3>Users</h3>

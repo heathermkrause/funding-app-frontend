@@ -210,7 +210,7 @@ const Stakeholder = () => {
               </div>
               
               <hr/>
-              <Button variant="primary" className="pull-right btn-add special" disabled={projects.length == 0} size="sm" onClick={() => addStakeholer()}>+ADD NEW</Button>
+              <Button variant="primary" className="pull-right btn-add special" disabled={projects.length == 0} size="sm" onClick={() => addStakeholer()}>+ADD</Button>
               <Table striped bordered hover size="sm">
                 <thead className="barlow-black-text">
                     <tr>
