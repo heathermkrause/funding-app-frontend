@@ -246,8 +246,8 @@ const Diagram = () => {
                         <p className="barlow-black-text">{projects.length ? projects[0].name : ''}</p>
                     </div>
                     <div>
-                        <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">Export PNG</Button>
-                        <Button onClick={exportSVG} variant="info" className="pull-left btn-export">Export SVG</Button>
+                        <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">EXPORT PNG</Button>
+                        <Button onClick={exportSVG} variant="info" className="pull-left btn-export">EXPORT SVG</Button>
                     </div>                     
                 </div>                
                 <canvas id="diagram" ref={canvas} width={width} height={height}/>

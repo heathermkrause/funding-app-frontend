@@ -57,6 +57,7 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #ebeef3;
     .inner {
       background-image: url(/static/media/company-logo.d3afbf43.png);
       background-repeat: no-repeat;
@@ -187,6 +188,12 @@ table {
   justify-content: space-between;
   p {
     margin: 0px;
+  }
+  input {
+    background-color: #ebeef3;
+    &:focus {
+      background-color: #ebeef3;
+    }
   }
 }
 
@@ -432,4 +439,25 @@ img.file-img {
 }
 .user-main {
   position: relative;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.custom-select {
+  background-color: #ebeef3;
+}
+.search-icon {
+  width: 20px;
+}
+.dashboard-content {
+  padding-bottom: 30px;
+  background-color: #ebeef3;
+}
+.modal-header {
+  background-color: #534495;
+  color: white;
+  button.close {
+    color: white;
+    opacity: 1;
+  }
 }

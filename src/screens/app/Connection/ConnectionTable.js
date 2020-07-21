@@ -20,6 +20,7 @@ import notify from "../../../utils/notify";
 
 import QuestionImg from '../../../assets/question.svg';
 import FileImg from '../../../assets/file.svg';
+import SearchImg from '../../../assets/search.svg';
 
 const ConnectionTable = (props) => {
     const [editList, setEditList] = useState([]);
@@ -204,7 +205,7 @@ const ConnectionTable = (props) => {
                     <InputGroup className="w-50">
                         <InputGroup.Prepend>
                             <InputGroup.Text>
-                                <Icon name="search" />
+                              <img src={SearchImg} alt="" className="search-icon"/>                    
                             </InputGroup.Text>
                         </InputGroup.Prepend>
                         <Form.Control

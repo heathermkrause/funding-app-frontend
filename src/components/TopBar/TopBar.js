@@ -24,8 +24,8 @@ const TopBar = ({ currentUser }) => {
       >
         <img
           src={Logo}
-          width="40"
-          height="40"
+          width="50"
+          height="50"
           className="d-inline-block align-top mr-2"
           alt="React Bootstrap logo"
         />
@@ -45,11 +45,11 @@ const TopBar = ({ currentUser }) => {
         <Nav className="flex-item">
           <div className="flex-item">
             <img src={Avatar} alt="" className="avatar"/>
-            <Nav.Link as={Link} to="/profile">{`${firstName} ${lastName} (${role})`}</Nav.Link>
-          </div>          
+            <Nav.Link as={Link} to="/profile"><span className="capitalize">{firstName} {lastName}</span> {`(${role})`}</Nav.Link>
+          </div> 
+          {/* <div style={{color: 'white'}}> | </div> */}
           <Nav.Link as={Link} to="/logout" onClick={handleLogout}>
-            Logout&nbsp;
-            <Icon name="sign-out" />
+            <Icon name="sign-out" />&nbsp;Logout
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

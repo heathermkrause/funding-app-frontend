@@ -165,7 +165,7 @@ const Stakeholder = () => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid className="dashboard-content">
       <Row>
         <Col lg={6}>
           <Project />
