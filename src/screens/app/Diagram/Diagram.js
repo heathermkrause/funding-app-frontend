@@ -45,6 +45,12 @@ const Diagram = () => {
         state => state.app.projectState.projects.list,
     );
 
+    const project = useSelector(
+        state => state.app.projectState.project.data,
+    );
+
+    console.log(project);
+
     useLayoutEffect(() => {
         const ctx = canvas.current.getContext("2d");
         drawDiagram(ctx);
@@ -66,8 +72,30 @@ const Diagram = () => {
         //     drawProjectName(ctx);
         // }
 
-        if (!!stakeholders.length && !!connections.length) {
+        if (!!stakeholders.length) {
             const circleCenters = makePoints(width / 2-40, height / 2-40, polygonRadius, stakeholders.length, 0);
+
+            if(stakeholders.length == 1) {
+                setCircleRadius(50);
+                drawCircle(ctx, width / 2 - 25, height / 2 - 25);
+                const [textArray, fontSize] = getFontInfo(stakeholders[0].name, circleRadius);
+                ctx.font = `${fontSize}px Barlow Light`;
+                // ctx.font = `20px Barlow Black`;
+                ctx.textAlign = 'center';
+                ctx.fillStyle = circleTextColor;
+                if(textArray.length === 1) {
+                    ctx.fillText(textArray[0], width / 2 - 25, height / 2 - 25);
+                } else if(textArray.length === 2) {
+                    ctx.fillText(textArray[0], width / 2 - 25, height / 2 - 25 - fontSize/2);
+                    ctx.fillText(textArray[1], width / 2 - 25, height / 2 - 25 + fontSize/2);
+                } else {
+                    ctx.fillText(textArray[0], width / 2 - 25, height / 2 - 25 - fontSize);
+                    ctx.fillText(textArray[1], width / 2 - 25, height / 2 - 25);
+                    ctx.fillText(textArray[2], width / 2 - 25, height / 2 - 25 + fontSize);
+                }
+                return;
+            }
+
             const c1 = circleCenters[0];
             const c2 = circleCenters[1];
 
@@ -98,23 +126,25 @@ const Diagram = () => {
                     ctx.fillText(textArray[2], center.x, center.y + fontSize);
                 }
             })
-            const rearrangedConnections = rearrangeConnection(connections);
-            rearrangedConnections.forEach((con) => {
-                if ((findIndex(stakeholders, { _id: con.from._id }) >= 0) && (findIndex(stakeholders, { _id: con.to._id })) >= 0) {
-                    const [startPoint, endPoint] = getArrowPoints(
-                        circleCenters[findIndex(stakeholders, { _id: con.from._id })],
-                        circleCenters[findIndex(stakeholders, { _id: con.to._id })],
-                        circleRadius + 5,
-                        con.repeated
-                    )
-                    const Arrow = {
-                        startPoint,
-                        endPoint,
-                        arrowColor: con.type === 'influence' ? 'red' : con.type === 'funding' ? 'orange' : '#594FD1'
-                    }
-                    drawArrow(ctx, Arrow.startPoint.x, Arrow.startPoint.y, Arrow.endPoint.x, Arrow.endPoint.y, 3, 1, 50, 25, Arrow.arrowColor, 4);
-                } 
-            })
+            if(!!connections.length) {
+                const rearrangedConnections = rearrangeConnection(connections);
+                rearrangedConnections.forEach((con) => {
+                    if ((findIndex(stakeholders, { _id: con.from._id }) >= 0) && (findIndex(stakeholders, { _id: con.to._id })) >= 0) {
+                        const [startPoint, endPoint] = getArrowPoints(
+                            circleCenters[findIndex(stakeholders, { _id: con.from._id })],
+                            circleCenters[findIndex(stakeholders, { _id: con.to._id })],
+                            circleRadius + 5,
+                            con.repeated
+                        )
+                        const Arrow = {
+                            startPoint,
+                            endPoint,
+                            arrowColor: con.type === 'influence' ? 'red' : con.type === 'funding' ? 'orange' : '#594FD1'
+                        }
+                        drawArrow(ctx, Arrow.startPoint.x, Arrow.startPoint.y, Arrow.endPoint.x, Arrow.endPoint.y, 3, 1, 50, 25, Arrow.arrowColor, 4);
+                    } 
+                })
+            }
         }
     }
 
@@ -243,7 +273,7 @@ const Diagram = () => {
                 <div className="flex-item-between mt10">
                     <div className="flex-item header-title">
                         <img src={FileImg} alt="" className="file-img"/>
-                        <p className="barlow-black-text">{projects.length ? projects[0].name : ''}</p>
+                        <p className="barlow-black-text">{projects.length ? project.name : ''}</p>
                     </div>
                     <div>
                         <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">EXPORT PNG</Button>
