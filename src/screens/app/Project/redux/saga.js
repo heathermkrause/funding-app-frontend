@@ -70,6 +70,8 @@ export function* projectDeleteRequest(action) {
       true,
     );
     yield put(projectDeleteSuccess(action.id, data));
+    yield put(stakeholderListRequest());
+    yield put(connectionListRequest());
   } catch (err) {
     yield put(projectDeleteError(err));
   }

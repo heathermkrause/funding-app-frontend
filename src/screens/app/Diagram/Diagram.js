@@ -49,6 +49,10 @@ const Diagram = () => {
         state => state.app.projectState.project.data,
     );
 
+    const project_id = useSelector(
+        state => state.app.projectState.project.id,
+    );
+
     useLayoutEffect(() => {
         const ctx = canvas.current.getContext("2d");
         drawDiagram(ctx);
@@ -70,7 +74,8 @@ const Diagram = () => {
         //     drawProjectName(ctx);
         // }
 
-        if (!!stakeholders.length) {
+        console.log(project_id);
+        if (!!stakeholders.length && project_id != 'new') {
             const circleCenters = makePoints(width / 2-40, height / 2-40, polygonRadius, stakeholders.length, 0);
 
             if(stakeholders.length == 1) {
@@ -271,7 +276,7 @@ const Diagram = () => {
                 <div className="flex-item-between mt10">
                     <div className="flex-item header-title">
                         <img src={FileImg} alt="" className="file-img"/>
-                        <p className="barlow-black-text">{projects.length ? project.name : ''}</p>
+                        <p className="barlow-black-text">{project ? project.name : ''}</p>
                     </div>
                     <div>
                         <Button onClick={exportPNG} variant="info" className="pull-left mr-3 btn-export">EXPORT PNG</Button>

@@ -24,7 +24,7 @@ import {
     projectSaveRequest,
     loadNewProject,
     projectListRequest,
-    projectDeleteRequest
+    projectDeleteRequest,
 } from './redux/actions';
 
 import { Icon } from '../../../components/Icon';
@@ -82,6 +82,7 @@ const Project = () => {
     const onConfirmProject = () => {
         dispatch(projectSaveRequest())
         setEditMode(false);
+        dispatch(projectListRequest());
     }
 
     const onUpdateField = (field, index) => event => {
@@ -90,17 +91,19 @@ const Project = () => {
 
     const onCancelProject = () => {
         setEditMode(false);
+        dispatch(projectListRequest());
     }
     const onDeleteProject = () => {
         setShowConfirm(true)
     }
     const handleCancel = () => {
         setShowConfirm(false);
+        dispatch(projectListRequest());
     }
     const handleConfirm = () => {
         dispatch(projectDeleteRequest(project._id));
         setShowConfirm(false);
-        dispatch(projectListRequest());
+        //dispatch(projectListRequest());
     }
 
     const renderConfirmDialog = () => {

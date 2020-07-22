@@ -54,6 +54,15 @@ const projectReducer = (state = initalState, action) =>
           project => project['_id'] !== action.id,
         );
         draft.projects.list = filteredList;
+        if(filteredList.length) {
+          draft.project.id = filteredList[0]._id;
+          draft.project.data = filteredList[0];
+        }
+        else {
+          draft.project.id = 'new';
+          draft.project.data = {};
+        }
+
         draft.projects.loading = false;
         draft.project.loading = false;
         break;
