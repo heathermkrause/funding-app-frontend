@@ -100,6 +100,9 @@ export function* projectSaveRequest() {
         true,
       );
     }
+
+    //localStorage.setItem('current_project_id', responseData._id);
+    
     history.push('/');
     notify('success', 'The project has been saved succcessfully');
 

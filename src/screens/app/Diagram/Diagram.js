@@ -49,8 +49,6 @@ const Diagram = () => {
         state => state.app.projectState.project.data,
     );
 
-    console.log(project);
-
     useLayoutEffect(() => {
         const ctx = canvas.current.getContext("2d");
         drawDiagram(ctx);

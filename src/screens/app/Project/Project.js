@@ -45,16 +45,26 @@ const Project = () => {
     const project = useSelector(
         state => state.app.projectState.project.data,
     );
-
+    
     useEffect(() => {
         dispatch(projectListRequest());
+        dispatch(projectLoadRequest(localStorage.getItem('current_project_id')));
     }, [currentUser, dispatch]);
+
+    useEffect(() => {
+        if(localStorage.getItem('current_project_id') != project._id && project._id !== undefined) {
+            console.log('call project', project);
+            localStorage.setItem('current_project_id', project._id)
+            dispatch(projectLoadRequest(project._id));
+        }
+    }, [project, dispatch]);
 
     const onAddProject = () => {
         setEditMode(true);
         dispatch(loadNewProject());
     }
     const onSelectProject = e => {
+        localStorage.setItem('current_project_id', e.target.value);
         dispatch(projectLoadRequest(e.target.value));
     }
     const onEditProject = () => {
