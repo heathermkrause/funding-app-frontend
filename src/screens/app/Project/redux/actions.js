@@ -7,12 +7,12 @@ export function projectListRequest(data) {
   };
 }
 
-export function projectListSuccess(data, totalCount) {
+export function projectListSuccess(data, selected_project_id) {
   return {
     type: CONSTANTS.PROJECT_LIST_SUCCESS,
     payload: {
       data,
-      totalCount,
+      selected_project_id,
     },
   };
 }

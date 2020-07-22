@@ -25,7 +25,7 @@ import { selectProject } from './selectors';
 
 export function* projectListRequest(action) {
   try {
-    const { list } = yield call(
+    const { list, selected_project_id } = yield call(
       request,
       '/projects',
       'GET',
@@ -33,7 +33,7 @@ export function* projectListRequest(action) {
       true,
     );
 
-    yield put(projectListSuccess(list));
+    yield put(projectListSuccess(list, selected_project_id));
     yield put(stakeholderListRequest());
     yield put(connectionListRequest());
     history.push(`/`);

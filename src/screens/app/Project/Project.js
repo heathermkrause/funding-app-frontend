@@ -42,22 +42,30 @@ const Project = () => {
     const projects = useSelector(
         state => state.app.projectState.projects.list,
     );
+    const selected_project_id = useSelector(
+        state => state.app.projectState.projects.selected_project_id,
+    );
     const project = useSelector(
         state => state.app.projectState.project.data,
+    );
+
+    const project_id = useSelector(
+        state => state.app.projectState.project.id,
     );
     
     useEffect(() => {
         dispatch(projectListRequest());
-        dispatch(projectLoadRequest(localStorage.getItem('current_project_id')));
+        //console.log(project, localStorage.getItem('current_project_id'));
+        //dispatch(projectLoadRequest(localStorage.getItem('current_project_id')));
     }, [currentUser, dispatch]);
 
-    useEffect(() => {
-        if(localStorage.getItem('current_project_id') != project._id && project._id !== undefined) {
-            console.log('call project', project);
-            localStorage.setItem('current_project_id', project._id)
-            dispatch(projectLoadRequest(project._id));
-        }
-    }, [project, dispatch]);
+    // useEffect(() => {
+    //     if(localStorage.getItem('current_project_id') != project._id && project._id !== undefined) {
+    //         console.log('call project', project);
+    //         localStorage.setItem('current_project_id', project._id)
+    //         dispatch(projectLoadRequest(project._id));
+    //     }
+    // }, [project, dispatch]);
 
     const onAddProject = () => {
         setEditMode(true);
@@ -176,7 +184,7 @@ const Project = () => {
                             <Col lg="12" xs="12">
                                 <select
                                     className="custom-select custom-select-md barlow-light-text"
-                                    value={project._id}
+                                    value={project_id}
                                     onChange={(e) => onSelectProject(e)}
                                 >
                                     {projects.map(project => (

@@ -37,8 +37,8 @@ const projectReducer = (state = initalState, action) =>
         break;
       case CONSTANTS.PROJECT_LIST_SUCCESS:
         draft.projects.list = action.payload.data;
-        draft.project.data = action.payload.data[0];
-        draft.project.id = action.payload.data[0]._id;
+        draft.project.id = action.payload.selected_project_id ? action.payload.selected_project_id : action.payload.data[0]._id;
+        draft.project.data = action.payload.data.find(item => {return item._id == draft.project.id});
         draft.projects.loading = false;
         break;
       case CONSTANTS.PROJECT_LIST_ERROR:
@@ -79,6 +79,7 @@ const projectReducer = (state = initalState, action) =>
       case CONSTANTS.PROJECT_SAVE_SUCCESS:
         if (draft.project.id === 'new') {
           draft.projects.list = [...draft.projects.list, action.data];
+          draft.project.id = action.data._id;
         } else {
           const projectArray = cloneDeep(state.projects.list);
           const index = findIndex(projectArray, { _id: action.data._id });
