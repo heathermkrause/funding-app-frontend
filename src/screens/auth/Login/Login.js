@@ -38,7 +38,10 @@ const LoginPage = () => {
         <Col xs={5}>
           <div className="logo-part">
             <img src={Logo} alt="" className="auth-logo"/>
-          </div>          
+          </div>
+          <div>
+          Hello. Welcome to We All Count’s Funding Web tool. You can find a short introduction to the tool here.
+          </div>
           <Card>
             <Card.Header className="text-center">
               <h3>LOG IN</h3>

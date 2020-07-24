@@ -89,6 +89,7 @@ const projectReducer = (state = initalState, action) =>
         if (draft.project.id === 'new') {
           draft.projects.list = [...draft.projects.list, action.data];
           draft.project.id = action.data._id;
+          console.log('project save', action.data);
         } else {
           const projectArray = cloneDeep(state.projects.list);
           const index = findIndex(projectArray, { _id: action.data._id });

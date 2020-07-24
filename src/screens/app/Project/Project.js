@@ -82,7 +82,8 @@ const Project = () => {
     const onConfirmProject = () => {
         dispatch(projectSaveRequest())
         setEditMode(false);
-        dispatch(projectListRequest());
+        setTimeout(function(){ dispatch(projectListRequest()); }, 600);
+        
     }
 
     const onUpdateField = (field, index) => event => {
@@ -142,7 +143,7 @@ const Project = () => {
                             <Popover id={`popover-positioned-buttom`}>
                                 <Popover.Title as="h3">Project Name!</Popover.Title>
                                 <Popover.Content>
-                                    You can create and update a project.
+                                Here you can create, update, or delete projects.
                                 </Popover.Content>
                             </Popover>
                         }

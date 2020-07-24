@@ -188,7 +188,7 @@ const Stakeholder = () => {
                       <Popover id={`popover-positioned-buttom`}>
                         <Popover.Title as="h3">Stakeholder!</Popover.Title>
                         <Popover.Content>
-                          You can manage the stakeholders.
+                          Here is where you can add and manage Stakeholders. These become ovals in the web.
                         </Popover.Content>
                       </Popover>
                     }

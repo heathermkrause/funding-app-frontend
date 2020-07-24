@@ -181,7 +181,7 @@ const ConnectionTable = (props) => {
                             <Popover id={`popover-positioned-buttom`}>
                                 <Popover.Title as="h3">Connection!</Popover.Title>
                                 <Popover.Content>
-                                    This is the table for the relationship between stakeholders.
+                                    Here is where you add the relationships between your stakeholders. These become arrows in the web.
                                 </Popover.Content>
                             </Popover>
                         }

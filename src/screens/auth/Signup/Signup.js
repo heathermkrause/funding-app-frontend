@@ -43,6 +43,9 @@ const SignupPage = () => {
           <div className="logo-part">
             <img src={Logo} alt="" className="auth-logo"/>
           </div> 
+          <div>
+            Hello. Welcome to We All Count’s Funding Web tool. You can find a short introduction to the tool here. We will collect your email address only so that you can save your Funding Webs for your future use and so that you can recover/reset your password. The email will not be used for any other purposes, including marketing or promotion. If you would like to contact us directly or be added to our newsletter list, please send an email to hello@weallcount.com
+          </div>
           <Card>
             <Card.Header bg="secondary" className="text-center">
               <h3>REGISTER A NEW ACCOUNT</h3>

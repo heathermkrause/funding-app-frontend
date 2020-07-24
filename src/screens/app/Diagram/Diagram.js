@@ -74,7 +74,7 @@ const Diagram = () => {
         //     drawProjectName(ctx);
         // }
 
-        console.log(project_id);
+        //console.log(project_id);
         if (!!stakeholders.length && project_id != 'new') {
             const circleCenters = makePoints(width / 2-40, height / 2-40, polygonRadius, stakeholders.length, 0);
 
@@ -253,7 +253,7 @@ const Diagram = () => {
                             <Popover id={`popover-positioned-buttom`}>
                                 <Popover.Title as="h3">Diagram!</Popover.Title>
                                 <Popover.Content>
-                                    This is a Diagram showing the relationship between stakeholders.
+                                    Here is where you can see the Funding Web and the flows of data, money, and influence between your stakeholders. 
                                 </Popover.Content>
                             </Popover>
                         }
