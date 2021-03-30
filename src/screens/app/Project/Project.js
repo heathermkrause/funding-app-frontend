@@ -101,7 +101,7 @@ const Project = () => {
         setShowConfirm(false);
         dispatch(projectListRequest());
     }
-    const handleConfirm = () => {
+    const handleConfirmDelete = () => {
         dispatch(projectDeleteRequest(project._id));
         setShowConfirm(false);
         //dispatch(projectListRequest());
@@ -117,7 +117,7 @@ const Project = () => {
                     <p>The connections and stakeholders in this Project will be also removed. </p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={handleConfirm}>
+                    <Button variant="danger" onClick={handleConfirmDelete}>
                         Remove
                     </Button>
                     <Button variant="primary" onClick={handleCancel}>
@@ -199,7 +199,9 @@ const Project = () => {
                                 </select>
                             </Col>
                             <Col lg="12" xs="12" className="pt-4 flex-end">
-                                <EditButton onClick={()=>onEditProject()} />
+                                { project_id && 
+                                    <EditButton onClick={()=>onEditProject()} /> 
+                                }
                                 <DeleteButton onClick={()=>onDeleteProject()} />
                                 <AddButton onClick={()=>onAddProject()} />
                             </Col>

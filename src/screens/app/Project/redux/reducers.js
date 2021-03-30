@@ -37,8 +37,8 @@ const projectReducer = (state = initalState, action) =>
         break;
       case CONSTANTS.PROJECT_LIST_SUCCESS:
         draft.projects.list = action.payload.data;
-        draft.project.id = action.payload.selected_project_id ? action.payload.selected_project_id : action.payload.data[0]._id;
-        draft.project.data = action.payload.data.find(item => {return item._id == draft.project.id});
+        draft.project.id = action.payload.selected_project_id ? action.payload.selected_project_id : (action.payload.data.length ? action.payload.data[0]._id : '');
+        draft.project.data = action.payload.data.find(item => {return item._id === draft.project.id});
         draft.projects.loading = false;
         break;
       case CONSTANTS.PROJECT_LIST_ERROR:
@@ -59,7 +59,7 @@ const projectReducer = (state = initalState, action) =>
           draft.project.data = filteredList[0];
         }
         else {
-          draft.project.id = 'new';
+          draft.project.id = '';
           draft.project.data = {};
         }
 

@@ -27,6 +27,9 @@ export function* stakeholderListRequest(action) {
     const project = selectProject(state);
     const projectId = get(project, 'project.id');
 
+    if(!projectId)
+      return;
+
     const { list } = yield call(
       request,
       `/stakeholders/${projectId}`,
